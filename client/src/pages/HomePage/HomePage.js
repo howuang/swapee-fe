@@ -1,4 +1,6 @@
 import React from 'react'
+import PublicNavbar from '../../components/PublicNavbar/PublicNavbar'
+import "./style.css"
 
 const HomePage = () => {
     return (

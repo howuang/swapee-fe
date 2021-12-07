@@ -1,55 +1,66 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
+import "./style.scss"
+import PublicDropdown from '../PublicDropdown/PublicDropdown';
+import PublicButton from '../PublicButton/PublicButton';
 
 const PublicNavbar = () => {
-    return (
-      <Navbar bg="light" expand="lg" className="sticky-top box-shadow">
-        <Container fluid>
-          <Navbar.Brand as={Link} to="/">Swapee</Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: '100px' }}
-              navbarScroll
-            >
-              <Nav.Link href="#action1">Home</Nav.Link>
-              <NavDropdown title="Shop" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">All</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Clothing</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Furniture</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Electronics</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Books</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success">Search</Button>
-            </Form>
-            <Nav
-              className="my-2 my-lg-0"
-              style={{ maxHeight: '100px' }}
-              navbarScroll
-            >
-              <Nav.Link href="#action1">Profile</Nav.Link>
-              {/* <NavDropdown title="Account" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">All</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Clothing</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Furniture</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Electronics</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Books</NavDropdown.Item>
-              </NavDropdown> */}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+  const [click, setClick] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
+
+  const handleClick = () => setClick(!click);
+  const closeMobileMenu = () => setClick(false);
+
+  const onMouseEnter = () => {
+    if (window.innerWidth < 960) {
+      setDropdown(false)
+    } else {
+      setDropdown(true);
+    }
+  };
+
+  const onMouseLeave = () => {
+    if (window.innerWidth < 960) {
+      setDropdown(false)
+    } else {
+      setDropdown(false);
+    }
+  };
+
+  return (
+    <>
+      <nav className="navbar">
+        <Link to="/" className="navbar-logo">
+          Swapee
+        </Link>
+        <div className="menu-icon">
+          <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+        </div>
+        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+          <li className='nav-item'>
+            <Link to='/' className='nav-links' onClick={closeMobileMenu}>Home</Link>
+          </li>
+          <li className='nav-item'
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+          >
+            <Link to='/explore' className='nav-links' onClick={closeMobileMenu}>
+              Explore <i className='fas fa-caret-down' />
+            </Link>
+            {dropdown && <PublicDropdown />}
+          </li>
+          <li className='nav-item'>
+            <Link to='/' className='nav-links' onClick={closeMobileMenu}>Contact</Link>
+          </li>
+          <li className='nav-item'>
+            <Link to='/signup' className='nav-links-mobile' onClick={closeMobileMenu}>Sign Up</Link>
+          </li>
+        </ul>
+        <PublicButton />
+      </nav>
+    </>
     )
 }
 
