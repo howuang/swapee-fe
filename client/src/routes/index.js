@@ -13,12 +13,10 @@ import Footer from '../components/Footer/Footer';
 const PublicLayout = () => {
     return (
         <>
-            <PublicNavbar />
             <Container fluid style={{ padding: 0 }}>
                 <AlertMsg />
                 <Outlet />
             </Container>
-            <Footer />
         </> 
     )
 }

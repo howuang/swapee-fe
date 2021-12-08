@@ -1,7 +1,13 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 
 const ProfilePage = () => {
+    const dispatch = useDispatch();
+
+    const params = useParams();
+    const { name } = params;
+    
     const { loading, isAuthenticated, accessToken } = useSelector((state) => state.auth);
     const user = useSelector(state => state.auth.user);
     

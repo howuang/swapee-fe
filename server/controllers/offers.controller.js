@@ -41,25 +41,35 @@ offerController.update = catchAsync(async (req, res) => {
     const offerRequest = await OfferRequest.findByIdAndUpdate(
         req.params.id,
         { status: req.body.status },
-        { new: true },
-        (err, offerRequest) => {
-            if (!offerRequest) {
-                res.status(404).json({ message: "Swap request not found" });
-            } else {
-                res.json(offerRequest)
-            }
-        }
-    )
+        { new: true });
+    if (!offerRequest) {
+        res.status(404).json({ message: "Swap request not found" });
+    } else {
+        return sendResponse(
+            res,
+            200,
+            true,
+            offerRequest,
+            null,
+            "Successfully update swap request"
+        );
+    }
 });
 
 offerController.delete = catchAsync(async (req, res) => {
-    await OfferRequest.findByIdAndDelete(req.params.id, (err, offerRequest) => {
-        if (!offerRequest) {
-            res.status(404).json({ message: "Swap request not found" });
-        } else {
-            res.json(offerRequest)
-        }
-    })
+    const offerRequest = await OfferRequest.findByIdAndDelete(req.params.id)
+    if (!offerRequest) {
+        res.status(404).json({ message: "Swap request not found" });
+    } else {
+        return sendResponse(
+            res,
+            200,
+            true,
+            offerRequest,
+            null,
+            "Successfully delete swap request"
+        );
+    }
 });
 
 module.exports = offerController;

@@ -1,6 +1,7 @@
 import * as types from "../constants/item.constants";
+import api from "../api";
 
-const createItem = () => async (dispatch) => {
+const createItem = ({name, description, condition, imageUrl}) => async (dispatch) => {
     dispatch({ type: types.CREATE_ITEM_REQUEST, payload: null });
     try {
         const res = await api.post("/items", { name, description, condition, imageUrl });
@@ -28,13 +29,13 @@ const getAllItems = (pageNum = 1, limit = 10, query = null, ownerId = null, sort
             sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
         }
         const res = await api.get("/items?page=${pageNum}&limit=${limit}${queryString}${sortByString}");
-        dispatch({ type: types.GET_ALL_ITEMS_SUCCESS, payload: res.data.data })
+        dispatch({ type: types.GET_ALL_ITEMS_SUCCESS, payload: res.data.data.items })
     } catch (error) {
         dispatch({ type: types.GET_ALL_ITEMS_FAILURE, payload: error });
     }
 };
 
-const getSinglePost = (itemId) => async (dispatch) => {
+const getSingleItem = (itemId) => async (dispatch) => {
   dispatch({ type: types.GET_SINGLE_ITEM_REQUEST, payload: null });
   try {
     const res = await api.get(`/items/${itemId}`);
@@ -49,4 +50,6 @@ const getSinglePost = (itemId) => async (dispatch) => {
 
 export const itemActions = {
     createItem,
+    getAllItems,
+    getSingleItem
 }

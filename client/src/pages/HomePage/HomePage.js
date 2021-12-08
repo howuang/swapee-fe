@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Footer from '../../components/Footer/Footer';
 import PublicNavbar from '../../components/PublicNavbar/PublicNavbar'
+import { itemActions } from '../../redux/actions/item.actions';
 import "./style.scss"
 
 const HomePage = () => {
+    const dispatch = useDispatch();
+
+    const items = useSelector((state) => state.items.items);
+
+    useEffect(() => {
+        dispatch(itemActions.getAllItems());
+    }, []);
     return (
+        <>
+            <PublicNavbar/>
         <div className='wrapper'>
             <div className='hero'>
                 <h1>Looking for things to swap today?</h1>
@@ -39,7 +51,9 @@ const HomePage = () => {
 
 
             This is Home Page
-        </div>
+            </div>
+            <Footer/>
+        </>
     )
 };
 

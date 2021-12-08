@@ -55,8 +55,8 @@ const Footer = () => {
                     </ul>
                 </div>
                 <div className="footer-right">
-                    <a><i class="fab fa-facebook" /></a>
-                    <a><i class="fab fa-instagram"/></a>
+                    <a><i className="fab fa-facebook" /></a>
+                    <a><i className="fab fa-instagram"/></a>
                 </div>
             </footer>
         </>
