@@ -5,6 +5,10 @@ import PublicNavbar from '../components/PublicNavbar/PublicNavbar'
 import AuthPage from '../pages/AuthPage/AuthPage'
 import HomePage from '../pages/HomePage/HomePage'
 import AlertMsg from './layouts/AlertMsg';
+import ExplorePage from '../pages/ExplorePage/ExplorePage';
+import ProfilePage from '../pages/ProfilePage/ProfilePage';
+import PrivateRoute from './PrivateRoute';
+import Footer from '../components/Footer/Footer';
 
 const PublicLayout = () => {
     return (
@@ -14,6 +18,7 @@ const PublicLayout = () => {
                 <AlertMsg />
                 <Outlet />
             </Container>
+            <Footer />
         </> 
     )
 }
@@ -21,12 +26,16 @@ const PublicLayout = () => {
 const AllRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<PublicLayout/>} >
-                <Route exact path="/sign-up" element={<AuthPage />} />
+            <Route path="/" element={<PublicLayout />} >
+                <Route exact path="/signup" element={<AuthPage />} />
+                <Route exact path="/:name" element={<PrivateRoute>
+                    <ProfilePage />
+                </PrivateRoute>} />
+                <Route exact path="/explore" element={<ExplorePage />} />
                 <Route path="/" element={<HomePage />} />
             </Route>
         </Routes>
     )
-}
+};
 
 export default AllRoutes;

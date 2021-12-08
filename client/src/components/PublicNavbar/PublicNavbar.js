@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import "./style.scss"
 import PublicDropdown from '../PublicDropdown/PublicDropdown';
 import PublicButton from '../PublicButton/PublicButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions } from '../../redux/actions/auth.actions';
 
 const PublicNavbar = () => {
+  const dispatch = useDispatch();
   const [click, setClick] = useState(false);
   const [dropdown, setDropdown] = useState(false);
 
@@ -29,11 +32,18 @@ const PublicNavbar = () => {
     }
   };
 
+  const { loading, isAuthenticated, accessToken } = useSelector((state) => state.auth);
+  const user = useSelector(state => state.auth.user);
+
+  useEffect(() => {
+    dispatch(authActions.getCurrentUser());
+  }, []);
+
   return (
     <>
       <nav className="navbar">
         <Link to="/" className="navbar-logo">
-          Swapee
+          SWAPEE
         </Link>
         <div className="menu-icon">
           <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
@@ -54,14 +64,18 @@ const PublicNavbar = () => {
           <li className='nav-item'>
             <Link to='/' className='nav-links' onClick={closeMobileMenu}>Contact</Link>
           </li>
-          <li className='nav-item'>
-            <Link to='/signup' className='nav-links-mobile' onClick={closeMobileMenu}>Sign Up</Link>
-          </li>
+          {!loading && <>{isAuthenticated ?
+            <li className='nav-item'>
+              <Link to={`/${user.displayName}`} className='nav-links'>{user.name}</Link>
+            </li>
+            :
+            <PublicButton />
+          }
+          </>}
         </ul>
-        <PublicButton />
       </nav>
     </>
-    )
-}
+  )
+};
 
 export default PublicNavbar

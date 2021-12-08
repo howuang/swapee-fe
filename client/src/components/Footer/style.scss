@@ -1,0 +1,41 @@
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: white;
+	color: black;
+	text-align: center;
+	height: 60px;
+	padding: 1rem 0;
+}
+
+.footer-menu {
+	display: flex;
+	.footer-left {
+		width: 80%;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	li {
+		list-style: none;
+		text-decoration: none;
+		color: black;
+	}
+	a {
+		padding: 0.5rem;
+		cursor: pointer;
+	}
+	.footer-right {
+		width: calc(100%-80%);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-left: 1rem;
+	}
+}

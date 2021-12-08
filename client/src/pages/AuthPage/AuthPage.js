@@ -1,13 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import PublicForm from '../../components/PublicForm/PublicForm'
+import FormSignup from '../../components/FormSignup/FormSignup'
 import './style.scss'
 
 
 const AuthPage = () => {
     return (
-        <div className='wrapper'>
-            <PublicForm />
+        <div className='form-container'>
+            <div className='form-content-left'>
+                <h1>
+                    Swapee
+                </h1>
+            </div>
+            <FormSignup />
         </div>
     )
 }

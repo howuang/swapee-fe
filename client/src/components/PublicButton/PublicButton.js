@@ -4,7 +4,7 @@ import './style.scss'
 
 const PublicButton = () => {
     return (
-        <Link to='sign-up'>
+        <Link to='/signup'>
             <button className='btn'>Sign Up</button>
         </Link>
     )
