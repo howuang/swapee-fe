@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
+import Items from '../../components/Items/Items';
 import PublicNavbar from '../../components/PublicNavbar/PublicNavbar'
 import { itemActions } from '../../redux/actions/item.actions';
 import "./style.scss"
@@ -12,8 +13,9 @@ const HomePage = () => {
     const items = useSelector((state) => state.items.items);
 
     useEffect(() => {
-        dispatch(itemActions.getAllItems());
+        dispatch(itemActions.getAllItems({limit: 3}));
     }, []);
+
     return (
         <>
             <PublicNavbar/>
@@ -38,15 +40,19 @@ const HomePage = () => {
                     <img />
                 </div>
             </section>
-            <section>
-                <div>
+            <section className="home-products">
                     <h3>
                         Things we love
                     </h3>
+                    <div className="home-products-bar">
+                        
+                <div className="home-items">
+                   {items.map((e) => {
+                        return <Items key={e._id} {...e} />
+                    
+                    })}
                 </div>
-                <div>
-                    product cards
-                </div>
+                    </div>
             </section>
 
 

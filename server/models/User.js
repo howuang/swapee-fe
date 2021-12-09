@@ -10,7 +10,7 @@ const userSchema = Schema(
     displayName: { type: String, required: true, unique: true },  
     email: { type: String, required: true, unique: true }, 
     password: { type: String, required: false, unique: false }, 
-    avatarUrl: { type: String, required: false, default: "" }, 
+    avatarUrl: { type: String, required: false, default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" }, 
     googleId: { type: String, required: false, default: "" }, 
     facebookId: { type: String, required: false, default: "" },
     role: { type: String, enum: ["user", "admin"], required: true, default: "user" }

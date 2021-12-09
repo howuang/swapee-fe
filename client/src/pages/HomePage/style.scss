@@ -27,3 +27,16 @@ section {
 	justify-content: center;
 	align-items: center;
 }
+.home-products {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 4rem;
+	width: 100%;
+	overflow: scroll;
+}
+
+.home-items {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

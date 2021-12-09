@@ -11,12 +11,14 @@ const createItem = ({name, description, condition, imageUrl}) => async (dispatch
     }
 };
 
-const getAllItems = (pageNum = 1, limit = 10, query = null, ownerId = null, sortBy = null) => async (dispatch) => {
+const getAllItems = (query = null, limit = 10, pageNum = 1, ownerId = null, sortBy = null) => async (dispatch) => {
     dispatch({ type: types.GET_ALL_ITEMS_REQUEST, payload: null });
+    console.log("page num", pageNum)
+    console.log("query", query)
     try {
         let queryString = "";
         if (query) {
-            queryString = `&name[$regex]=${query}&name[$options]=i`;
+            queryString = `&q=${query.query}`;
         }
 
         if (ownerId) {
@@ -28,7 +30,7 @@ const getAllItems = (pageNum = 1, limit = 10, query = null, ownerId = null, sort
         if (sortBy?.key) {
             sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
         }
-        const res = await api.get("/items?page=${pageNum}&limit=${limit}${queryString}${sortByString}");
+        const res = await api.get(`/items?page=${pageNum}&limit=${limit}${queryString}${sortByString}`);
         dispatch({ type: types.GET_ALL_ITEMS_SUCCESS, payload: res.data.data.items })
     } catch (error) {
         dispatch({ type: types.GET_ALL_ITEMS_FAILURE, payload: error });

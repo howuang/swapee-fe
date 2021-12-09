@@ -5,16 +5,16 @@
 .btn {
 	padding: 8px 20px;
 	outline: none;
-	border: 3px solid black;
 	font-size: 18px;
-	color: black;
+	color: white;
+	background: black;
 	cursor: pointer;
 }
 
 .btn:hover {
 	padding: 6px 18px;
 	transition: all 0.2s ease-out;
-	background-color: blue;
-	color: white;
+	background-color: white;
+	color: black;
 	border: 3px solid black;
 }

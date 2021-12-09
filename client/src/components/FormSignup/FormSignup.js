@@ -14,7 +14,7 @@ const Modal = ({ showModal, setShowModal }) => {
     });
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-    const handleChange = (e) => {
+    const handleLoginChange = (e) => {
         const { name, value } = e.target;
         setDataForm({ ...dataForm, [name]: value });
     };
@@ -30,7 +30,6 @@ const Modal = ({ showModal, setShowModal }) => {
     };
   
     const responseFacebook = (response) => {
-    
         console.log(response);
         dispatch(authActions.loginFacebookRequest(response.id, response.accessToken))
     };
@@ -42,13 +41,10 @@ const Modal = ({ showModal, setShowModal }) => {
             {showModal ?
                 <div className="modal-background">
                     <div className="modal-wrapper" showModal={showModal}>
-                        <form className='form' onSubmit={handleLogin}>
-                            <button onClick={() => setShowModal(prev => !prev)}>
+                        <form className='form'>
+                            <button className="close-btn"onClick={() => setShowModal(prev => !prev)}>
                                 <i className="fas fa-times" />
                             </button>
-                            <h1>
-                                Start declutter today! Create your account by filling out the information below.
-                            </h1>
                             <div className='login-btns'>
                                 <GoogleLogin
                                     clientId={`${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}
@@ -71,7 +67,6 @@ const Modal = ({ showModal, setShowModal }) => {
                             <span className='form-input-login'>
                                 or
                             </span>
-                            
                             <div className='form-inputs'>
                                 <label htmlFor="email" className='form-label'>
                                     Email
@@ -80,7 +75,7 @@ const Modal = ({ showModal, setShowModal }) => {
                                     type='email'
                                     name='email'
                                     className='form-input'
-                                    onChange={handleChange}
+                                    onChange={handleLoginChange}
                                 />
                             </div>
                             <div className='form-inputs'>
@@ -91,10 +86,10 @@ const Modal = ({ showModal, setShowModal }) => {
                                     type='password'
                                     name='password'
                                     className='form-input'
-                                    onChange={handleChange}
+                                    onChange={handleLoginChange}
                                 />
                             </div>
-                            <button className='form-input-btn' type='submit'>
+                            <button className='form-input-btn' type='submit' onClick={handleLogin}>
                                 Log In
                             </button>
                         </form>
@@ -107,7 +102,6 @@ const Modal = ({ showModal, setShowModal }) => {
 
 const FormSignup = () => {
     const dispatch = useDispatch();
-
 
     const [dataForm, setDataForm] = useState({
         name: "",
@@ -130,10 +124,7 @@ const FormSignup = () => {
         dispatch(authActions.register(dataForm.name, dataForm.email, dataForm.password));
     };
 
-    console.log("dataForm", dataForm)
-
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    
 
     const responseGoogle = (response) => {
         console.log(response);
@@ -141,14 +132,11 @@ const FormSignup = () => {
     };
   
     const responseFacebook = (response) => {
-    
         console.log(response);
         dispatch(authActions.loginFacebookRequest(response.id, response.accessToken))
     };
 
     if (isAuthenticated) return <Navigate to="/" />;
-    
-
     
     return (
         <div className='form-content-right'>
@@ -212,11 +200,11 @@ const FormSignup = () => {
                     />
                 </div>
                 <button className='form-input-btn' type='submit'>
-                    Sign Up
+                    Create account
                 </button>
                  <span className='form-input-login'>
                     Already have an account? Login <span>
-                        <button onClick={openModal}>
+                        <button className='login-link'  onClick={openModal}>
                             here
                         </button>
                     </span>

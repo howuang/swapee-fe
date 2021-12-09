@@ -6,7 +6,7 @@ const loginRequest = (email, password) => async (dispatch) => {
   dispatch({ type: types.LOGIN_REQUEST, payload: null });
   try {
     const res = await api.post("/auth/login", { email, password });
-    const name = res.data.data.user.firstName;
+    const name = res.data.data.user.name;
     dispatch({ type: types.LOGIN_SUCCESS, payload: res.data.data });
     toast.success(`Welcome ${name}`);
     api.defaults.headers.common["authorization"] =
@@ -22,7 +22,7 @@ const loginFacebookRequest = (userId, access_token) => async (dispatch) => {
   dispatch({ type: types.LOGIN_FACEBOOK_REQUEST, payload: null });
   try {
     const res = await api.post("/auth/login/facebook", { userId, access_token });
-    const name = res.data.data.user.firstName;
+    const name = res.data.data.user.name;
     toast.success(`Welcome ${name}`);
     dispatch({ type: types.LOGIN_FACEBOOK_SUCCESS, payload: res.data.data });
     api.defaults.headers.common["authorization"] =
@@ -36,7 +36,7 @@ const loginGoogleRequest = (idToken) => async (dispatch) => {
   dispatch({ type: types.LOGIN_GOOGLE_REQUEST, payload: null });
   try {
     const res = await api.post("/auth/login/google", { idToken });
-    const name = res.data.data.user.firstName;
+    const name = res.data.data.user.name;
     toast.success(`Welcome ${name}`);
     dispatch({ type: types.LOGIN_GOOGLE_SUCCESS, payload: res.data.data });
     api.defaults.headers.common["authorization"] =
@@ -45,6 +45,7 @@ const loginGoogleRequest = (idToken) => async (dispatch) => {
     dispatch({ type: types.LOGIN_GOOGLE_FAILURE, payload: error });
   }
 };
+
 const register = (name, email, password) => async (dispatch) => {
   dispatch({ type: types.REGISTER_REQUEST, payload: null });
   try {

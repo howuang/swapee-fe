@@ -3,7 +3,6 @@ import './style.scss'
 
 
 const Items = (item) => {
-    console.log(item)
     return (
         <div className='item-card'>
             <img className='item-img' src={item.imageUrl} />
