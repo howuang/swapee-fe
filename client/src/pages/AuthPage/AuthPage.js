@@ -8,9 +8,7 @@ const AuthPage = () => {
     return (
         <div className='form-container'>
             <div className='form-content-left'>
-                <h1>
-                    Swapee
-                </h1>
+                <Link to='/'>Swapee</Link>
             </div>
             <FormSignup />
         </div>

@@ -13,52 +13,47 @@ const HomePage = () => {
     const items = useSelector((state) => state.items.items);
 
     useEffect(() => {
-        dispatch(itemActions.getAllItems({limit: 3}));
+        dispatch(itemActions.getAllItems());
     }, []);
 
     return (
         <>
-            <PublicNavbar/>
-        <div className='wrapper'>
-            <div className='hero'>
-                <h1>Looking for things to swap today?</h1>
-                <Link to='/explore'>
-                    <button className='explore-btn'>Explore Now</button>
-                </Link>
-            </div>
-            <section>
-                <div>
-                    <h1>
-                        What is Swapee?
-                    </h1>
-                    <p>
-
-                    </p>
-
+            <div className='wrapper'>
+                <div className='hero'>
+                    <h1>Looking for things to swap today?</h1>
+                    <Link to='/explore'>
+                        <button className='explore-btn'>Explore Now</button>
+                    </Link>
                 </div>
-                <div>
-                    <img />
-                </div>
-            </section>
-            <section className="home-products">
+                <section>
+                    <div>
+                        <h1>
+                            What is Swapee?
+                        </h1>
+                        <p>
+
+                        </p>
+
+                    </div>
+                    <div>
+                        <img />
+                    </div>
+                </section>
+                <section className="home-products">
                     <h3>
                         Things we love
                     </h3>
                     <div className="home-products-bar">
                         
-                <div className="home-items">
-                   {items.map((e) => {
-                        return <Items key={e._id} {...e} />
+                        <div className="home-items">
+                            {items.map((e) => {
+                                return <Items key={e._id} {...e} />
                     
-                    })}
-                </div>
+                            })}
+                        </div>
                     </div>
-            </section>
-
-
-            This is Home Page
+                </section>
             </div>
-            <Footer/>
         </>
     )
 };

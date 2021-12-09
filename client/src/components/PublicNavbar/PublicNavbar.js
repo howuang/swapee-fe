@@ -31,8 +31,8 @@ const DropdownMenu = () => {
   };
   return (
     <div className='dropdown'>
-      <Link to="/profile">My Profile</Link>
-      <Link to="/membership">Membership</Link>
+      <Link className='dropdown-link' to="/profile">My Profile</Link>
+      <Link className='dropdown-link' to="/membership">Membership</Link>
       <hr></hr>
       <button className='logout-btn' onClick={handleLogout}>Log Out</button>
       </div>

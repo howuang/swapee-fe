@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import Footer from '../../components/Footer/Footer';
 import Items from '../../components/Items/Items';
 import PublicNavbar from '../../components/PublicNavbar/PublicNavbar';
@@ -18,7 +19,6 @@ const ExplorePage = () => {
 
     return (
         <>
-            <PublicNavbar/>
             <div className='explore-container'>
                 <div className='explore-top'>
                     <p>
@@ -39,8 +39,6 @@ const ExplorePage = () => {
                 </div>
  
             </div>
-            <Footer/>
-            
         </>
     )
 };

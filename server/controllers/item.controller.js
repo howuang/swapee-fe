@@ -59,7 +59,7 @@ itemController.list = catchAsync(async (req, res) => {
 });
 
 itemController.getSingleItem = catchAsync(async (req, res) => {
-    const item = await Item.findById(req.params.id).populate({ path: "offers", populate: "itemOffer" });
+    const item = await Item.findById(req.params.id).populate({ path: "offers", populate: "itemOffer" }).populate("owner");
     if (!item) {
         res.status(404).json({ message: "Item not found" });
     } else {

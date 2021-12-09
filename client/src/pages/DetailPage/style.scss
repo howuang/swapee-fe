@@ -1,0 +1,33 @@
+.item-container {
+	padding-top: 120px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.item-container-left {
+}
+
+.item-container-right {
+	margin-left: 2rem;
+	padding: 1rem;
+	width: 400px;
+	border: 1px solid red;
+}
+
+.owner-info {
+	display: flex;
+}
+
+.owner-avatar {
+	width: 70px;
+	height: 70px;
+	margin-right: 1rem;
+	img {
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		object-fit: cover;
+		overflow: hidden;
+	}
+}
