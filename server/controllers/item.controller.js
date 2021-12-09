@@ -29,18 +29,34 @@ itemController.create = catchAsync(async (req, res) => {
 });
 
 itemController.list = catchAsync(async (req, res) => {
-    let { page, limit, sortBy, ...filter } = { ...req.query };
+    let { page, limit, sortBy, q, category, ...filter } = { ...req.query }
+    // req.query = { page: 1, limit: 10, name: { $regex: q, $options: 'i' }, category: { $regex: category, $options: 'i' } };
+    let items;
+    
     page = parseInt(page) || 1;
     limit = parseInt(limit) || 10;
     const totalItems = await Item.countDocuments({ ...filter });
     const totalPages = Math.ceil(totalItems / limit);
     const offset = limit * (page - 1);
-    const items = await Item.find(filter)
-        .sort({ ...sortBy, createdAt: -1 })
-        .skip(offset)
-        .limit(limit).populate("owner")
+    if (q) {
+        items = await Item.find({ name: { $regex: q, $options: 'i' } })
+            .sort({ ...sortBy, createdAt: -1 })
+            .skip(offset)
+            .limit(limit).populate("owner")
+        
+    } else if (category) {
+        items = await Item.find({ catgory: category })
+            .sort({ ...sortBy, createdAt: -1 })
+            .skip(offset)
+            .limit(limit).populate("owner")
+    } else {
+        items = await Item.find()
+            .sort({ ...sortBy, createdAt: -1 })
+            .skip(offset)
+            .limit(limit).populate("owner")
+    }
     return sendResponse(res, 200, true, { items }, null, "Received all items");
-})
+});
 
 itemController.getSingleItem = catchAsync(async (req, res) => {
     const item = await Item.findById(req.params.id).populate({ path: "offers", populate: "itemOffer" });

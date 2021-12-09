@@ -114,13 +114,12 @@ userController.update = async (req, res) => {
 };
 
 userController.destroy = async (req, res) => {
-  await User.findByIdAndDelete(req.params.id, (err, user) => {
+  await User.findByIdAndDelete(req.params.id)
     if (!user) {
       res.status(404).json({ message: "User not Found" });
     } else {
       res.json(user);
     }
-  });
 };
 
 module.exports = userController;

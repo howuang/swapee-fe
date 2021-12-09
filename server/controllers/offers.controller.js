@@ -4,6 +4,7 @@ const {
   catchAsync,
   sendResponse,
 } = require("../helpers/utils.helper");
+const Item = require("../models/Item");
 
 const offerController = {};
 
@@ -41,7 +42,11 @@ offerController.update = catchAsync(async (req, res) => {
     const offerRequest = await OfferRequest.findByIdAndUpdate(
         req.params.id,
         { status: req.body.status },
-        { new: true });
+        { new: true }).populate("item");
+    
+    //Update both items in the request as swapped
+    await Item.findByIdAndUpdate(offerRequest.item._id, { isSwapped: true, newOwner: offerRequest.owner._id });
+    await Item.findByIdAndUpdate(offerRequest.itemOffer._id, { isSwapped: true, newOwner: offerRequest.item.owner._id });
     if (!offerRequest) {
         res.status(404).json({ message: "Swap request not found" });
     } else {

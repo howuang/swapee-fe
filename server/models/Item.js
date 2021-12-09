@@ -13,8 +13,13 @@ const itemSchema = Schema(
             required: true,
             type: Schema.Types.ObjectId
         },
+        newOwner: {
+            ref: "User",
+            type: Schema.Types.ObjectId
+        },
         verified: { type: String, required: false, default: false },
-        offers: { type: Array }
+        offers: { type: Array },
+        isSwapped: { type: String, default: false },
     },
     {
         timestaps: true
