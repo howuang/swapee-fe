@@ -1,23 +1,26 @@
 .user-info {
 	width: 100%;
-	padding-top: 100px;
-	border: 1px solid red;
+	padding: 100px 100px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 }
 
 .user-details {
 	display: flex;
-	border: 3px solid black;
 	button {
-		border: 3px solid black;
-		background: none;
+		border: 3px solid rgb(113, 211, 186);
+		height: 35px;
+		background-color: rgb(113, 211, 186);
+		border-radius: 5px;
+		color: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		padding: 5px 10px;
 	}
 	button:hover {
-		background: blue;
 		color: white;
 	}
 
@@ -34,12 +37,58 @@
 		flex-direction: column;
 		align-items: center;
 		padding: 1rem;
+		position: relative;
+	}
+	.camera-btn {
+		position: absolute;
+		bottom: 25px;
+		right: 25px;
+		background: none;
+		border: none;
+		color: grey;
+		font-size: 20px;
+	}
+	.camera-btn:hover {
+		color: rgb(113, 211, 186);
 	}
 	.user-details-right {
 		padding: 1rem;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		align-items: center;
+		align-items: flex-start;
 	}
+}
+
+.user-items {
+	width: 100%;
+	min-height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	border: 1px solid red;
+}
+.user-items-container {
+	border: 1px solid red;
+}
+.user-items-empty {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.profile-popup {
+	border: 1px solid red;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	padding: 1rem;
+	width: 500px;
+	height: 500px;
+	transform: translate(-50%, -50%);
+	background: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

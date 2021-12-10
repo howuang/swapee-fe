@@ -28,10 +28,12 @@ const DropdownMenu = () => {
   
    const handleLogout = () => {
     dispatch(authActions.logout());
-  };
+   };
+  const user = useSelector(state => state.auth.user);
+
   return (
     <div className='dropdown'>
-      <Link className='dropdown-link' to="/profile">My Profile</Link>
+      <Link className='dropdown-link' to={`/${user.displayName}`}>My Profile</Link>
       <Link className='dropdown-link' to="/membership">Membership</Link>
       <hr></hr>
       <button className='logout-btn' onClick={handleLogout}>Log Out</button>
@@ -42,14 +44,12 @@ const DropdownMenu = () => {
 const PublicNavbar = () => {
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
-  const [dropdown, setDropdown] = useState(false);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   
   const { loading, isAuthenticated, accessToken } = useSelector((state) => state.auth);
   const user = useSelector(state => state.auth.user);
 
-  const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
   const navigate = useNavigate();

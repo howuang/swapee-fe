@@ -13,8 +13,6 @@ const createItem = ({name, description, condition, imageUrl}) => async (dispatch
 
 const getAllItems = (query = null, limit = 10, pageNum = 1, ownerId = null, sortBy = null) => async (dispatch) => {
     dispatch({ type: types.GET_ALL_ITEMS_REQUEST, payload: null });
-    console.log("page num", pageNum)
-    console.log("query", query)
     try {
         let queryString = "";
         if (query) {
@@ -22,7 +20,6 @@ const getAllItems = (query = null, limit = 10, pageNum = 1, ownerId = null, sort
         }
 
         if (ownerId) {
-            console.log("owner id", ownerId);
             queryString = `${queryString}&owner=${ownerId}`;
         }
 
@@ -40,7 +37,7 @@ const getAllItems = (query = null, limit = 10, pageNum = 1, ownerId = null, sort
 const getSingleItem = (itemId) => async (dispatch) => {
   dispatch({ type: types.GET_SINGLE_ITEM_REQUEST, payload: null });
   try {
-    const res = await api.get(`/items/${itemId}`);
+      const res = await api.get(`/items/${itemId}`);
     dispatch({
       type: types.GET_SINGLE_ITEM_SUCCESS,
       payload: res.data.data,

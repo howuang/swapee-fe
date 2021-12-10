@@ -71,14 +71,27 @@ const verifyEmail = (code) => async (dispatch) => {
   }
 };
 
-const updateProfile = (name, avatarUrl) => async (dispatch) => {
+const updateProfile = ({...updateInfo}, userId) => async (dispatch) => {
   dispatch({ type: types.UPDATE_PROFILE_REQUEST, payload: null });
   try {
-    const res = await api.put("/users", { name, avatarUrl });
+    const res = await api.put(`/users/${userId}`, {...updateInfo});
     dispatch({ type: types.UPDATE_PROFILE_SUCCESS, payload: res.data.data });
     toast.success(`Your profile has been updated.`);
+    dispatch(authActions.getCurrentUser());
   } catch (error) {
     dispatch({ type: types.UPDATE_PROFILE_FAILURE, payload: error });
+  }
+};
+
+const updateProfilePhoto = (avatarUrl, userId) => async (dispatch) => {
+  dispatch({ type: types.UPDATE_PROFILE_PHOTO_REQUEST, payload: null });
+  try {
+    const res = await api.put(`/users/${userId}/photo`, avatarUrl);
+    dispatch({ type: types.UPDATE_PROFILE_PHOTO_SUCCESS, payload: res.data.data });
+    toast.success(`Your profile photo has been updated.`);
+    dispatch(authActions.getCurrentUser());
+  } catch (error) {
+    dispatch({ type: types.UPDATE_PROFILE_PHOTO_FAILURE, payload: error });
   }
 };
 
@@ -109,6 +122,7 @@ export const authActions = {
   register,
   verifyEmail,
   updateProfile,
+  updateProfilePhoto,
   getCurrentUser,
   logout,
 };

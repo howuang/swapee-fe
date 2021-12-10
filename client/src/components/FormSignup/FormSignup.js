@@ -54,7 +54,7 @@ const Modal = ({ showModal, setShowModal }) => {
                                     cookiePolicy={'single_host_origin'}
                                     className='login-btn'
                                 />
-                                <FacebookLogin
+                                {/* <FacebookLogin
                                     appId={`${process.env.REACT_APP_FACEBOOK_APP_ID}`}
                                     autoLoad={true}
                                     fields="name,email,picture"
@@ -62,7 +62,7 @@ const Modal = ({ showModal, setShowModal }) => {
                                     cssClass="login-btn"
                                     icon="fa-facebook"
 
-                                />
+                                /> */}
                             </div>
                             <span className='form-input-login'>
                                 or
@@ -153,7 +153,7 @@ const FormSignup = () => {
                         cookiePolicy={'single_host_origin'}
                         className='login-btn'
                     />
-                    <FacebookLogin
+                    {/* <FacebookLogin
                         appId={`${process.env.REACT_APP_FACEBOOK_APP_ID}`}
                         autoLoad={true}
                         fields="name,email,picture"
@@ -161,7 +161,7 @@ const FormSignup = () => {
                         cssClass="login-btn"
                         icon="fa-facebook"
 
-                    />
+                    /> */}
                 </div>
                  <span className='form-input-login'>
                     or 

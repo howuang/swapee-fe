@@ -29,7 +29,7 @@ itemController.create = catchAsync(async (req, res) => {
 });
 
 itemController.list = catchAsync(async (req, res) => {
-    let { page, limit, sortBy, q, category, ...filter } = { ...req.query }
+    let { page, limit, sortBy, q, owner, category, ...filter } = { ...req.query }
     // req.query = { page: 1, limit: 10, name: { $regex: q, $options: 'i' }, category: { $regex: category, $options: 'i' } };
     let items;
     
@@ -45,11 +45,17 @@ itemController.list = catchAsync(async (req, res) => {
             .limit(limit).populate("owner")
         
     } else if (category) {
-        items = await Item.find({ catgory: category })
+        items = await Item.find({ category: category })
             .sort({ ...sortBy, createdAt: -1 })
             .skip(offset)
             .limit(limit).populate("owner")
-    } else {
+    } else if(owner){
+         items = await Item.find({ owner: owner })
+            .sort({ ...sortBy, createdAt: -1 })
+            .skip(offset)
+            .limit(limit).populate("owner")
+    }
+    else {
         items = await Item.find()
             .sort({ ...sortBy, createdAt: -1 })
             .skip(offset)

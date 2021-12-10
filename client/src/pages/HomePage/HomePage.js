@@ -13,7 +13,7 @@ const HomePage = () => {
     const items = useSelector((state) => state.items.items);
 
     useEffect(() => {
-        dispatch(itemActions.getAllItems());
+        dispatch(itemActions.getAllItems(null, 4, 1, null, null));
     }, []);
 
     return (
@@ -48,7 +48,6 @@ const HomePage = () => {
                         <div className="home-items">
                             {items.map((e) => {
                                 return <Items key={e._id} {...e} />
-                    
                             })}
                         </div>
                     </div>

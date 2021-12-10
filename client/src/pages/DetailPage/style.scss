@@ -12,11 +12,15 @@
 	margin-left: 2rem;
 	padding: 1rem;
 	width: 400px;
-	border: 1px solid red;
 }
 
 .owner-info {
 	display: flex;
+	margin-bottom: 1rem;
+	h5 {
+		font-weight: bold;
+		font-size: 20px;
+	}
 }
 
 .owner-avatar {
@@ -30,4 +34,19 @@
 		object-fit: cover;
 		overflow: hidden;
 	}
+}
+
+.swap-btn-gone {
+	height: 40px;
+	width: 100%;
+	border-radius: 10px;
+	border: none;
+	background-color: rgb(146, 146, 146);
+	cursor: none;
+	margin-bottom: 1rem;
+}
+
+.swap-btn button {
+	width: 100%;
+	background: red;
 }

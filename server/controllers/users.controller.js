@@ -76,10 +76,7 @@ userController.readUser = async (req, res) => {
 
 userController.getCurrentUser = catchAsync(async (req, res, next) => {
   const userId = req.userId;
-  console.log("user id", userId);
-  console.log("userId", userId)
   const user = await User.findById(userId).lean()
-  console.log("user", user)
   if (!user) {
     res.status(404).json({ message: "User not Found" });
   } else {
@@ -94,32 +91,66 @@ userController.getCurrentUser = catchAsync(async (req, res, next) => {
   }
 })
 
-userController.update = async (req, res) => {
-  let { name, email, password, avatarUrl } = req.body;
+userController.updateProfile = catchAsync(async (req, res, next) => {
+  let user;
+  const allowOptions = ["name", "email", "password", "avatarUrl", "location", "about"];
+  const updateObject = {};
   const salt = await bcrypt.genSalt(10);
-  password = await bcrypt.hash(password, salt);
-  await User.findByIdAndUpdate(
-    { _id: req.params.id },
-    { name, email, password, avatarUrl, displayName: toSlug(name)},
-    { new: true },
-    (err, user) => {
-      console.log({ err, user });
-      if (!user) {
-        res.status(404).json({ message: "User not Found" });
-      } else {
-        res.json(user);
-      }
-    }
+  try {
+    // if (req.body.password) {
+    //   password = await bcrypt.hash(password, salt);
+    // }
+    allowOptions.forEach((option) => {
+      if (req.body[option] !== "") {
+        updateObject[option] = req.body[option];
+      } 
+    });
+    user = await User.findByIdAndUpdate(
+      { _id: req.params.id },
+      updateObject,
+      { new: true });
+  
+  } catch (error) {
+    return next(error);
+  }
+  return sendResponse(
+    res,
+    200,
+    true,
+    user,
+    null,
+    "Successfull update user profile"
   );
-};
+}
+);
+
+userController.updateProfilePhoto = catchAsync(async (req, res) => {
+  const { avatarUrl } = req.body;
+  const user = await User.findByIdAndUpdate(
+    { _id: req.params.id },
+    { avatarUrl },
+    { new: true })
+  if (!user) {
+    res.status(404).json({ message: "User not Found" });
+  } else {
+    return sendResponse(
+      res,
+      200,
+      true,
+      user,
+      null,
+      "Successfull update user profile photo"
+    );
+  }
+});
 
 userController.destroy = async (req, res) => {
-  await User.findByIdAndDelete(req.params.id)
-    if (!user) {
-      res.status(404).json({ message: "User not Found" });
-    } else {
-      res.json(user);
-    }
+  const user = await User.findByIdAndDelete(req.params.id)
+  if (!user) {
+    res.status(404).json({ message: "User not Found" });
+  } else {
+    res.json(user);
+  }
 };
 
 module.exports = userController;
