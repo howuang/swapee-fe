@@ -25,6 +25,7 @@ const ProfilePage = () => {
     const [itemPopup, setItemPopup] = useState(false);
     const [itemInfo, setItemInfo] = useState({
         name: "",
+        category: "",
         description: "",
         condition: "",
         imageUrl: "",
@@ -69,6 +70,11 @@ const ProfilePage = () => {
         e.preventDefault();
         dispatch(authActions.updateProfilePhoto(profilePhoto, user._id))
     };
+    
+    const handleCreateItem = (e) => {
+        e.preventDefault();
+        dispatch(itemActions.createItem({ ...itemInfo }))
+    }
     
     useEffect(() => {
         dispatch(authActions.getCurrentUser());
@@ -203,7 +209,7 @@ const ProfilePage = () => {
                                 <li><a>Swapped</a></li>
                             </ul>
                         </div>
-                        {user && <button>Add more items</button>}
+                        {user && <button onClick={() => setItemPopup(!itemPopup)}>Add more items</button>}
                         {items.map((e) => {
                             return <Items key={e._id} {...e} />
                         })}
@@ -214,49 +220,62 @@ const ProfilePage = () => {
                             <p>No item available</p>
                             {user && <button onClick={() => setItemPopup(!itemPopup)}>Let's add some item</button>}
                         </div>
-                        {itemPopup && 
-                            <div className='profile-popup'>
-                                <button onClick={() => setItemPopup(!itemPopup)}><id className='fas fa-times'/></button>
-                            <form>
-                                <div className='form-inputs'>
-                                    <label htmlFor="item-name" className='form-label'>
-                                        Name
-                                    </label>
-                                    <input
-                                        type='text'
-                                        name='item-name'
-                                        className='form-input'
-                                        onChange={handleItemInfo}
-                                    />
-                                </div>
-                                <div className='form-inputs'>
-                                    <label htmlFor="description" className='form-label'>
-                                        Description
-                                    </label>
-                                    <textarea
-                                        type='text'
-                                        name='description'
-                                        className='form-input'
-                                        onChange={handleItemInfo}
-                                    />
-                                    </div>
-                                    <div className='form-inputs'>
-                                    <label htmlFor="condition" className='form-label'>
-                                        Condition
-                                    </label>
-                                    <input
-                                        type='text'
-                                        name='condition'
-                                        className='form-input'
-                                        onChange={handleItemInfo}
-                                    />
-                                </div>
-                            </form>
-
-                        </div>
-                        }
                     </div>
                 }
+                        {itemPopup &&
+                            <div className='profile-popup'>
+                                <button onClick={() => setItemPopup(!itemPopup)}><id className='fas fa-times' /></button>
+                                <form onSubmit={handleCreateItem}>
+                                    <div className='form-inputs'>
+                                        <label htmlFor="name" className='form-label'>
+                                            Name
+                                        </label>
+                                        <input
+                                            type='text'
+                                            name='name'
+                                            className='form-input'
+                                            onChange={handleItemInfo}
+                                        />
+                                    </div>
+                                    <div className='form-inputs'>
+                                        <label htmlFor="category" className='form-label'>
+                                            Category
+                                        </label>
+                                        <select name="category" id="category" onChange={handleItemInfo}>
+                                            <option selected>Choose category</option>
+                                            <option value="clothing">Clothing</option>
+                                            <option value="furniture">Furniture</option>
+                                            <option value="electronics">Electronics</option>
+                                            <option value="books">Books</option>
+                                        </select>
+                                    </div>
+                                    <div className='form-inputs'>
+                                        <label htmlFor="description" className='form-label'>
+                                            Description
+                                        </label>
+                                        <textarea
+                                            type='text'
+                                            name='description'
+                                            className='form-input'
+                                            onChange={handleItemInfo}
+                                        />
+                                    </div>
+                                    <div className='form-inputs'>
+                                        <label htmlFor="condition" className='form-label'>
+                                            Condition
+                                        </label>
+                                        <input
+                                            type='text'
+                                            name='condition'
+                                            className='form-input'
+                                            onChange={handleItemInfo}
+                                        />
+                                    </div>
+                                    <button type='submit'>Add Item</button>
+                                </form>
+
+                            </div>
+                        }
             </div>
         </>
     )

@@ -1,10 +1,10 @@
 import * as types from "../constants/item.constants";
 import api from "../api";
 
-const createItem = ({name, description, condition, imageUrl}) => async (dispatch) => {
+const createItem = ({name, category, description, condition, imageUrl}) => async (dispatch) => {
     dispatch({ type: types.CREATE_ITEM_REQUEST, payload: null });
     try {
-        const res = await api.post("/items", { name, description, condition, imageUrl });
+        const res = await api.post("/items", { name, category, description, condition, imageUrl });
         dispatch({ type: types.CREATE_ITEM_SUCCESS, payload: res.data.data })
     } catch (error) {
         dispatch({ type: types.CREATE_ITEM_FAILURE, payload: error })
