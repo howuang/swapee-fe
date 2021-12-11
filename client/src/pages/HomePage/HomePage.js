@@ -13,7 +13,7 @@ const HomePage = () => {
     const items = useSelector((state) => state.items.items);
 
     useEffect(() => {
-        dispatch(itemActions.getAllItems(null, 4, 1, null, null));
+        dispatch(itemActions.getAllItems(null, 5, 1, null, null));
     }, []);
 
     return (

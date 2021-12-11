@@ -1,11 +1,14 @@
 import * as types from "../constants/item.constants";
 import api from "../api";
+import { toast } from "react-toastify";
 
-const createItem = ({name, category, description, condition, imageUrl}) => async (dispatch) => {
+const createItem = ({name, category, description, condition, imageUrl}, userId) => async (dispatch) => {
     dispatch({ type: types.CREATE_ITEM_REQUEST, payload: null });
     try {
         const res = await api.post("/items", { name, category, description, condition, imageUrl });
         dispatch({ type: types.CREATE_ITEM_SUCCESS, payload: res.data.data })
+        toast.success(`You added 1 ${name}. Let's start exploring!`)
+        dispatch(itemActions.getAllItems(null, 10, 1, userId, null));
     } catch (error) {
         dispatch({ type: types.CREATE_ITEM_FAILURE, payload: error })
     }

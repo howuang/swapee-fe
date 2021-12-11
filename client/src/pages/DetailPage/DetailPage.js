@@ -3,22 +3,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import Footer from '../../components/Footer/Footer'
 import PublicNavbar from '../../components/PublicNavbar/PublicNavbar'
+import { authActions } from '../../redux/actions/auth.actions';
 import { itemActions } from '../../redux/actions/item.actions';
 import './style.scss'
 
 const DetailPage = () => {
-    const params = useParams();
-    console.log(params)
     const dispatch = useDispatch();
+    const params = useParams();
     const itemId = params.id;
-    console.log("item id", itemId)
 
-    const item = useSelector(state => state.items.singleItem)
+    const item = useSelector(state => state.items.singleItem);
+    const user = useSelector(state => state.auth.user);
+    console.log("user id", user._id)
+    console.log(("item owner id", item))
 
+    
     useEffect(() => {
         dispatch(itemActions.getSingleItem(itemId));
     }, []);
-
+    
+    useEffect(() => {
+        dispatch(authActions.getCurrentUser());
+    }, []);
     return (
         <>
             <div className="item-container">
@@ -36,15 +42,19 @@ const DetailPage = () => {
                             </div>
                         </div>
                         : null}
-                    {item.isSwapped === "true" ? <button className='swap-btn-gone'>Gone</button> : <button className='swap-btn'>Let's swap!</button>}
+                    {item.owner._id === user._id ?
+                        <div className='item-btn'>
+                            <button>Update Item</button>
+                        </div> : <div>
+                            {item.isSwapped === "true" ? <button className='swap-btn-gone'>Gone</button> : <button className='swap-btn'>Let's swap!</button>}
+
+                        </div>}
                     <div className="item-info">
                         <h4>{item.name}</h4>
                         <p>{item.description}</p>
                         <p>Condition: {item.condition}</p>
                     </div>
-
                 </div>
-
             </div>
         </>
     )
