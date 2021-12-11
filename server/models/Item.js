@@ -22,7 +22,7 @@ const itemSchema = Schema(
         isSwapped: { type: String, default: false },
     },
     {
-        timestaps: true
+        timestamps: true
     }
 );
 

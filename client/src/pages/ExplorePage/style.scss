@@ -16,10 +16,34 @@
 	h3 {
 		font-weight: bold;
 	}
+	.explore-top {
+		width: 100%;
+		padding: 0 3rem;
+	}
+	#category {
+		float: right;
+		width: 200px;
+		height: 30px;
+		padding: 5px;
+	}
 }
 
-.explore-items {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
+.explore-items button {
+	background-color: black;
+	color: white;
+	border-radius: 5px;
+	padding: 0.5rem 1rem;
+	border: none;
+	position: relative;
+	&:hover {
+		background-color: rgb(157, 207, 191);
+		transition: all 0.4s ease-out;
+	}
+}
+
+.explore-items-list {
+	margin-top: 1rem;
+	display: grid;
+	gap: 0.5rem 0.5rem;
+	grid-template-columns: repeat(6, minmax(0px, 1fr));
 }

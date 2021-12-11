@@ -6,6 +6,17 @@
 }
 
 .item-container-left {
+	width: 400px;
+	height: 400px;
+	object-fit: cover;
+	overflow: hidden;
+	border-radius: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	img {
+		height: 100%;
+	}
 }
 
 .item-container-right {
@@ -17,9 +28,17 @@
 .owner-info {
 	display: flex;
 	margin-bottom: 1rem;
+	&-details-link {
+		font-weight: bold;
+		text-decoration: none;
+		color: black;
+	}
 	h5 {
 		font-weight: bold;
-		font-size: 20px;
+	}
+	h5:hover {
+		text-decoration: underline;
+		color: black;
 	}
 }
 
@@ -36,14 +55,33 @@
 	}
 }
 
-.swap-btn-gone {
+.item-btn {
 	height: 40px;
 	width: 100%;
 	border-radius: 10px;
 	border: none;
-	background-color: rgb(146, 146, 146);
-	cursor: none;
 	margin-bottom: 1rem;
+	color: white;
+	background-color: black;
+	&-gone {
+		background-color: rgb(146, 146, 146);
+		cursor: none;
+		height: 40px;
+		width: 100%;
+		border-radius: 10px;
+		border: none;
+		margin-bottom: 1rem;
+		color: white;
+	}
+	&-swap {
+		height: 40px;
+		width: 100%;
+		border-radius: 10px;
+		border: none;
+		margin-bottom: 1rem;
+		color: white;
+		background-color: rgb(159, 255, 226);
+	}
 }
 
 .swap-btn button {

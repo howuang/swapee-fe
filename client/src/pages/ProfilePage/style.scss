@@ -1,3 +1,6 @@
+.wrapper {
+	background: url(../../assets/images/background2.jpg);
+}
 .user-info {
 	width: 100%;
 	padding: 100px 100px;
@@ -39,18 +42,7 @@
 		padding: 1rem;
 		position: relative;
 	}
-	.camera-btn {
-		position: absolute;
-		bottom: 25px;
-		right: 25px;
-		background: none;
-		border: none;
-		color: grey;
-		font-size: 20px;
-	}
-	.camera-btn:hover {
-		color: rgb(113, 211, 186);
-	}
+
 	.user-details-right {
 		padding: 1rem;
 		display: flex;
@@ -59,19 +51,37 @@
 		align-items: flex-start;
 	}
 }
+.user-intro {
+	width: 100%;
+	border-bottom: 1px solid rgb(165, 165, 165);
+}
 
 .user-items {
 	width: 100%;
 	min-height: 50vh;
 	display: flex;
 	justify-content: center;
-	flex-direction: column;
-	align-items: flex-start;
-	flex-wrap: wrap;
-	border: 1px solid red;
+	padding-top: 1rem;
+	&-empty {
+		height: 20vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		button {
+			padding: 0.5rem 1rem;
+			border-radius: 5px;
+			color: white;
+			background-color: black;
+			border: none;
+		}
+		button:hover {
+			background-color: rgb(129, 137, 255);
+			transition: all 0.4s ease-out;
+		}
+	}
 }
 .user-items-sort {
-	border-top: 1px solid red;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -86,14 +96,13 @@
 }
 
 .user-items-list {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-	align-content: flex-start;
+	display: grid;
+	gap: 0.5rem 0.5rem;
+	grid-template-columns: repeat(6, minmax(0px, 1fr));
 }
 
 .user-items-container {
-	border: 1px solid red;
+	border: 1px solid blue;
 }
 .user-items-empty {
 	display: flex;
@@ -104,7 +113,7 @@
 .profile-popup {
 	border: 3px solid black;
 	position: absolute;
-	top: 50%;
+	top: 400px;
 	left: 50%;
 	padding: 1rem;
 	width: 450px;
@@ -115,6 +124,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	z-index: 1;
 	.fa-times {
 		right: 0;
 		background: black;

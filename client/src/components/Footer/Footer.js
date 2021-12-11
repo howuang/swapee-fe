@@ -26,9 +26,6 @@ const Footer = () => {
                             <a>Jobs</a>
                         </li>
                         <li>
-                            <a>Spaces</a>
-                        </li>
-                        <li>
                             <a>News</a>
                         </li>
                         <li>

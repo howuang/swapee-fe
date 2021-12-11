@@ -102,19 +102,19 @@ const ProfilePage = () => {
     useEffect(() => {
         if (name === user.displayName) {
             //true => the user === other User => get into his own profile page
-            dispatch(itemActions.getAllItems(null, 20, 1, user._id, null))
+            dispatch(itemActions.getAllItems(null, 20, 1, user._id, null, null))
         } else {
             //false => user != other User => user get into otherUser profile page
             dispatch(userActions.singleUsersRequest(name))
             //singleUserRequest: to get other User infomation
         }
-    }, [user]);
+    }, [user, name]);
 
     useEffect(() => {
         if (otherUser) {
-            dispatch(itemActions.getAllItems(null, 10, 1, otherUser._id, null))
+            dispatch(itemActions.getAllItems(null, 10, 1, otherUser._id, null, null))
         }
-    }, [otherUser]);
+    }, [otherUser, name]);
     
     let renderUser;
     if (name === user.displayName) {
@@ -125,89 +125,92 @@ const ProfilePage = () => {
     
     return (
         <>
-            <div className='user-info'>
-                <div className='user-details'>
-                    <div className='user-details-left'>
-                        <img src={renderUser.avatarUrl} />
-                    </div>
-                    <div className='user-details-right'>
-                        <h3>{renderUser.name}</h3>
-                        <p>{renderUser.email}</p>
-                        {name === user.displayName ?
-                            <button className="update-btn" onClick={() => { setUpdatePopup(!updatePopup) }}>Edit profile</button> : null
-                        }
-                        {updatePopup &&
-                            <div className='profile-popup'>
-                                <button onClick={() => { setUpdatePopup(!updatePopup) }}><i className="fas fa-times" /></button>
-                                      <button onClick={handleProfilePhoto}>Profile Photo</button>
-                                <form onSubmit={handleUpdate}>
-                                    <div className='form-inputs'>
-                                        <label htmlFor="name" className='form-label'>
-                                            Name
-                                        </label>
-                                        <input
-                                            type='text'
-                                            name='name'
-                                            className='form-input'
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className='form-inputs'>
-                                        <label htmlFor="email" className='form-label'>
-                                            Email
-                                        </label>
-                                        <input
-                                            type='email'
-                                            name='email'
-                                            className='form-input'
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className='form-inputs'>
-                                        <label htmlFor="password" className='form-label'>
-                                            Password
-                                        </label>
-                                        <input
-                                            type='password'
-                                            name='password'
-                                            className='form-input'
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className='form-inputs'>
-                                        <label htmlFor="location" className='form-label'>
-                                            Location
-                                        </label>
-                                        <input
-                                            type='text'
-                                            name='location'
-                                            className='form-input'
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className='form-inputs'>
-                                        <label htmlFor="about" className='form-label'>
-                                            About
-                                        </label>
-                                        <textarea
-                                            type='text'
-                                            name='about'
-                                            className='form-input'
-                                            onChange={handleChange}
-                                        />
-                                    </div>
+            <div className='wrapper'>
+                <div className='user-info'>
+                    <div className='user-details'>
+                        <div className='user-details-left'>
+                            <img src={renderUser.avatarUrl} />
+                        </div>
+                        <div className='user-details-right'>
+                            <h3>{renderUser.name}</h3>
+                            <p>{renderUser.email}</p>
+                            {renderUser.location && <p>{renderUser.location}</p>}
+                            {name === user.displayName ?
+                                <button className="update-btn" onClick={() => { setUpdatePopup(!updatePopup) }}>Edit profile</button> : null
+                            }
+                            {updatePopup &&
+                                <div className='profile-popup'>
+                                    <button onClick={() => { setUpdatePopup(!updatePopup) }}><i className="fas fa-times" /></button>
+                                    <button onClick={handleProfilePhoto}>Profile Photo</button>
+                                    <form onSubmit={handleUpdate}>
+                                        <div className='form-inputs'>
+                                            <label htmlFor="name" className='form-label'>
+                                                Name
+                                            </label>
+                                            <input
+                                                type='text'
+                                                name='name'
+                                                className='form-input'
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className='form-inputs'>
+                                            <label htmlFor="email" className='form-label'>
+                                                Email
+                                            </label>
+                                            <input
+                                                type='email'
+                                                name='email'
+                                                className='form-input'
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className='form-inputs'>
+                                            <label htmlFor="password" className='form-label'>
+                                                Password
+                                            </label>
+                                            <input
+                                                type='password'
+                                                name='password'
+                                                className='form-input'
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className='form-inputs'>
+                                            <label htmlFor="location" className='form-label'>
+                                                Location
+                                            </label>
+                                            <input
+                                                type='text'
+                                                name='location'
+                                                className='form-input'
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className='form-inputs'>
+                                            <label htmlFor="about" className='form-label'>
+                                                About
+                                            </label>
+                                            <textarea
+                                                type='text'
+                                                name='about'
+                                                className='form-input'
+                                                onChange={handleChange}
+                                            />
+                                        </div>
     
-                                    <button type='submit'>Edit Your Profile</button>
-                                </form>
-                            </div>}
+                                        <button type='submit'>Edit Your Profile</button>
+                                    </form>
+                                </div>}
+                        </div>
                     </div>
-                </div>
-                <div className="user-intro">
-                    <h5>Intro</h5>
-                    {renderUser.about ?
-                        <div>
-                            {renderUser.about}
-                        </div> : <p>No intro available</p>}
+                    <div className="user-intro">
+                        <h5>Intro</h5>
+                        {renderUser.about ?
+                            <div>
+                                {renderUser.about}
+                            </div> : <p>No intro available</p>}
+                    </div>
                 </div>
                 {items.length !== 0 ?
                     <div className='user-items'>
@@ -217,7 +220,7 @@ const ProfilePage = () => {
                                 <li><a>Available</a></li>
                                 <li><a>Swapped</a></li>
                             </ul>
-                            {user && <button onClick={() => setItemPopup(!itemPopup)}>Add more items</button>}
+                            {name === user.displayName && <button onClick={() => setItemPopup(!itemPopup)}>Add more items</button>}
                         </div>
                         <div className='user-items-list'>
                             {items.map((e) => {
@@ -237,7 +240,7 @@ const ProfilePage = () => {
                 {itemPopup &&
                     <div className='item-popup'>
                         <button onClick={() => setItemPopup(!itemPopup)}><id className='fas fa-times' /></button>
-                                <button onClick={handleProductPhoto}>Item photo</button>
+                        <button onClick={handleProductPhoto}>Item photo</button>
                         <form onSubmit={handleCreateItem}>
                             <div className='form-inputs'>
                                 <label htmlFor="name" className='form-label'>

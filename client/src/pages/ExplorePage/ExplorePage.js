@@ -8,14 +8,25 @@ import { itemActions } from '../../redux/actions/item.actions';
 import "./style.scss";
 
 const ExplorePage = () => {
+    const [limit, setLimit] = useState(10);
+    const [category, setCategory] = useState(null);
     const dispatch = useDispatch();
 
+    const handleLimit = () => {
+        setLimit(limit + 10);
+    };
+
+    const handleCategory = (e) => {
+        setCategory(e.target.value)
+    }
+
     const items = useSelector(state => state.items.items);
-    console.log("items", items)
+    console.log("items", items);
+
 
     useEffect(() => {
-        dispatch(itemActions.getAllItems());
-    }, []);
+        dispatch(itemActions.getAllItems(null, limit, 1, null, null, category));
+    }, [limit, category]);
 
     return (
         <>
@@ -30,12 +41,22 @@ const ExplorePage = () => {
                     <h3>
                         Browse for things we love
                     </h3>
+                    <select name="category" id="category" onChange={handleCategory}>
+                        <option selected value="" >Choose category</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="furniture">Furniture</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="books">Books</option>
+                    </select>
                 </div>
                 <div className="explore-items">
-                    {items.map((e) => {
-                        return <Items key={e._id} {...e} />
+                    <div className="explore-items-list">
+                        {items.filter((e) => e.isSwapped === "false").map((e) => {
+                            return <Items key={e._id} {...e} />
                     
-                    })}
+                        })}
+                    </div>
+                    <button onClick={handleLimit}>Load More</button>
                 </div>
  
             </div>

@@ -14,12 +14,17 @@ const createItem = ({name, category, description, condition, imageUrl}, userId) 
     }
 };
 
-const getAllItems = (query = null, limit = 10, pageNum = 1, ownerId = null, sortBy = null) => async (dispatch) => {
+const getAllItems = (query = null, limit = 10, pageNum = 1, ownerId = null, sortBy = null, category=null) => async (dispatch) => {
     dispatch({ type: types.GET_ALL_ITEMS_REQUEST, payload: null });
     try {
         let queryString = "";
         if (query) {
             queryString = `&q=${query.query}`;
+        }
+
+        let categoryString = "";
+        if (category) {
+            categoryString = `&category=${category}`;
         }
 
         if (ownerId) {
@@ -30,7 +35,7 @@ const getAllItems = (query = null, limit = 10, pageNum = 1, ownerId = null, sort
         if (sortBy?.key) {
             sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
         }
-        const res = await api.get(`/items?page=${pageNum}&limit=${limit}${queryString}${sortByString}`);
+        const res = await api.get(`/items?page=${pageNum}&limit=${limit}${queryString}${categoryString}${sortByString}`);
         dispatch({ type: types.GET_ALL_ITEMS_SUCCESS, payload: res.data.data.items })
     } catch (error) {
         dispatch({ type: types.GET_ALL_ITEMS_FAILURE, payload: error });

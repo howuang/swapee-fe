@@ -32,7 +32,7 @@ const OfferRequestSchema = Schema(
         }
     },
     {
-        timestaps: true
+        timestamps: true
     }
 );
 

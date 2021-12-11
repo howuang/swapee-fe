@@ -11,9 +11,10 @@ const HomePage = () => {
     const dispatch = useDispatch();
 
     const items = useSelector((state) => state.items.items);
+    console.log("items", items)
 
     useEffect(() => {
-        dispatch(itemActions.getAllItems(null, 5, 1, null, null));
+        dispatch(itemActions.getAllItems(null, 5, 1, null, +1, null));
     }, []);
 
     return (
@@ -26,17 +27,19 @@ const HomePage = () => {
                     </Link>
                 </div>
                 <section>
-                    <div>
+                    <div className='intro'>
                         <h1>
                             What is Swapee?
                         </h1>
                         <p>
+                            Swapee is the marketplace app where the next generation come to discover and swap unique items. 
+                            With the sustainable living on the rise, swapping used items instead of buying new products means less clutter in life and less waste to the evnironment.
 
                         </p>
 
                     </div>
-                    <div>
-                        <img />
+                    <div className='intro-img'>
+                        <img src='https://i.pinimg.com/originals/ba/7c/d4/ba7cd455dcc0afeeaa5d20c6d4b8e72e.jpg'/>
                     </div>
                 </section>
                 <section className="home-products">
