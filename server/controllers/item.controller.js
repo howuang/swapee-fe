@@ -64,6 +64,24 @@ itemController.list = catchAsync(async (req, res) => {
     return sendResponse(res, 200, true, { items }, null, "Received all items");
 });
 
+itemController.getOwnItems = catchAsync(async (req, res) => {
+    const userId = req.userId;
+    console.log("userId", userId);
+    const ownItems = await Item.find({owner: userId})
+    if (!ownItems) {
+        res.status(404).json({message: "You don't have any item yet. Please add item"})
+    } else {
+        return sendResponse(
+            res,
+            200,
+            true,
+            ownItems,
+            null,
+            "Successfully get all your item"
+        );
+    }
+})
+
 itemController.getSingleItem = catchAsync(async (req, res) => {
     const item = await Item.findById(req.params.id).populate("owner").lean();
     if (!item) {
@@ -81,26 +99,32 @@ itemController.getSingleItem = catchAsync(async (req, res) => {
 });
 
 
-itemController.update = catchAsync(async (req, res) => {
-    const { name, description, condition, imageUrl } = req.body;
-    const item = await Item.findByIdAndUpdate(
-        req.params.id,
-        { name, description, condition, imageUrl },
-        { new: true },
-        (err, item) => {
-        if (!item) {
-            res.status(404).json({ message: "Item not found" })
-        } else {
-            return sendResponse(
-                res,
-                200,
-                true,
-                item,
-                null,
-                "Successfully update item"
-            );
-        }
-    });
+itemController.update = catchAsync(async (req, res, next) => {
+    let item;
+    const allowOptions = ["name", "category", "description", "condition", "imageUrl"];
+    const updateObject = {};
+    try {
+        allowOptions.forEach((option) => {
+            if (req.body[option] !== "") {
+                updateObject[option] = req.body[option];
+            }
+        });
+        item = await Item.findByIdAndUpdate(
+            req.params.id,
+            updateObject,
+            { new: true })
+
+    } catch (error) {
+        return next(error);
+    }
+    return sendResponse(
+        res,
+        200,
+        true,
+        item,
+        null,
+        "Successfully update item"
+    ); 
 });
 
 itemController.delete = catchAsync(async (req, res) => {
@@ -116,6 +140,8 @@ itemController.delete = catchAsync(async (req, res) => {
 itemController.createOfferRequest = catchAsync(async (req, res) => {
     const { message, itemOffer } = req.body;
     const { id } = req.params;
+    console.log("item offer", itemOffer)
+    console.log("id", id)
     const userId = req.userId;
     if (id === itemOffer) throw new Error("Cannot create offer with this item");
 

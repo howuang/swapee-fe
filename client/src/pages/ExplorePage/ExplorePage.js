@@ -21,8 +21,6 @@ const ExplorePage = () => {
     }
 
     const items = useSelector(state => state.items.items);
-    console.log("items", items);
-
 
     useEffect(() => {
         dispatch(itemActions.getAllItems(null, limit, 1, null, null, category));

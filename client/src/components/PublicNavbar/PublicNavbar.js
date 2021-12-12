@@ -27,7 +27,7 @@ const DropdownMenu = () => {
   const dispatch = useDispatch();
   
    const handleLogout = () => {
-    dispatch(authActions.logout());
+     dispatch(authActions.logout());
    };
   const user = useSelector(state => state.auth.user);
 

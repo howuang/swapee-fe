@@ -1,18 +1,26 @@
+.content {
+	padding-top: 1rem;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .item-container {
-	padding-top: 120px;
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	margin-bottom: 2rem;
 }
 
 .item-container-left {
-	width: 400px;
-	height: 400px;
+	width: 500px;
+	height: 500px;
 	object-fit: cover;
 	overflow: hidden;
-	border-radius: 30px;
+	border-radius: 20px;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	img {
 		height: 100%;
@@ -22,7 +30,7 @@
 .item-container-right {
 	margin-left: 2rem;
 	padding: 1rem;
-	width: 400px;
+	width: 350px;
 }
 
 .owner-info {
@@ -87,4 +95,58 @@
 .swap-btn button {
 	width: 100%;
 	background: red;
+}
+
+.item-info {
+	display: flex;
+	flex-direction: column;
+	h4 {
+		font-weight: bold;
+	}
+	&-details {
+		display: flex;
+		justify-content: space-between;
+	}
+}
+.swap-popup {
+	textarea {
+		width: 100%;
+	}
+}
+
+.user-item {
+	display: grid;
+	gap: 0.5rem 0.5rem;
+	grid-template-columns: repeat(3, minmax(0px, 1fr));
+	&-card {
+		width: 100px;
+		height: 100px;
+		object-fit: cover;
+		overflow: hidden;
+		border: 3px solid transparent;
+		position: relative;
+		img {
+			height: 100%;
+			width: auto;
+		}
+	}
+	&-card:hover {
+		border: 3px solid black;
+	}
+}
+
+.extra-items {
+	width: 100%;
+	padding: 20px 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	h4 {
+		font-weight: bold;
+	}
+	&-list {
+		display: grid;
+		gap: 0.5rem 0.5rem;
+		grid-template-columns: repeat(6, minmax(0px, 1fr));
+	}
 }

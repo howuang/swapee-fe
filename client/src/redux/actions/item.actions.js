@@ -42,6 +42,17 @@ const getAllItems = (query = null, limit = 10, pageNum = 1, ownerId = null, sort
     }
 };
 
+const getOwnItems = () => async (dispatch) => {
+    dispatch({ type: types.GET_OWN_ITEMS_REQUEST, payload: null });
+    try {
+        const res = await api.get(`/items/own`);
+        console.log("own items", res)
+        dispatch({ type: types.GET_OWN_ITEMS_SUCCESS, payload: res.data.data })
+    } catch (error) {
+        dispatch({ type: types.GET_OWN_ITEMS_FAILURE, payload: error });
+    }
+};
+
 const getSingleItem = (itemId) => async (dispatch) => {
   dispatch({ type: types.GET_SINGLE_ITEM_REQUEST, payload: null });
   try {
@@ -55,8 +66,35 @@ const getSingleItem = (itemId) => async (dispatch) => {
   }
 };
 
+const updateItem = ({...updateInfo}, itemId) => async (dispatch) => {
+  dispatch({ type: types.UPDATE_ITEM_REQUEST, payload: null });
+  try {
+    const res = await api.put(`/items/${itemId}`, {...updateInfo});
+    dispatch({ type: types.UPDATE_ITEM_SUCCESS, payload: res.data.data });
+    toast.success(`Item info has been updated.`);
+    dispatch(itemActions.getSingleItem());
+  } catch (error) {
+    dispatch({ type: types.UPDATE_ITEM_FAILURE, payload: error });
+  }
+};
+
+const createOffer = (offerInfo, itemId) => async (dispatch) => {
+    console.log("offer info", offerInfo);
+    dispatch({ type: types.CREATE_OFFER_REQUEST, payload: null });
+    try {
+        const res = await api.post(`/items/${itemId}`, offerInfo);
+        dispatch({ type: types.CREATE_OFFER_SUCCESS, payload: res.data.data });
+        toast.success(`Your offer request has been sent`);
+    } catch (error) {
+        dispatch({ type: types.CREATE_OFFER_FAILURE, payload: error })
+    }
+};
+
 export const itemActions = {
     createItem,
     getAllItems,
-    getSingleItem
+    getOwnItems,
+    getSingleItem,
+    updateItem,
+    createOffer
 }

@@ -29,6 +29,7 @@ const ProfilePage = () => {
         condition: "",
         imageUrl: "",
     });
+    const [filter, setFilter] = useState(null);
 
     const params = useParams();
     const { name } = params;
@@ -212,86 +213,95 @@ const ProfilePage = () => {
                             </div> : <p>No intro available</p>}
                     </div>
                 </div>
-                {items.length !== 0 ?
-                    <div className='user-items'>
-                        <div className='user-items-sort'>
-                            <ul>
-                                <li><a>All</a></li>
-                                <li><a>Available</a></li>
-                                <li><a>Swapped</a></li>
-                            </ul>
-                            {name === user.displayName && <button onClick={() => setItemPopup(!itemPopup)}>Add more items</button>}
+                <div className='user-listing'>
+                    {items.length !== 0 ?
+                        <div className='user-items'>
+                            <div className='user-items-sort'>
+                                <ul>
+                                    <li><button onClick={()=>setFilter(null)} >All</button></li>
+                                    <li><button onClick={()=>setFilter("false")}>Available</button></li>
+                                    <li><button onClick={()=>setFilter("true")}>Swapped</button></li>
+                                {name === user.displayName && <button onClick={() => setItemPopup(!itemPopup)}>Add more items</button>}
+                                </ul>
+                            </div>
+                            <div className='user-items-list'>
+                                {items.filter(e => {
+                                    if (filter === null) {
+                                        return e
+                                    } else {
+                                        
+                                        return e.isSwapped === filter
+                                    }
+                                }).map((e) => {
+                                    return <Items key={e._id} {...e} />
+                                })}
+
+                            </div>
                         </div>
-                        <div className='user-items-list'>
-                            {items.map((e) => {
-                                return <Items key={e._id} {...e} />
-                            })}
+                        :
+                        <div className='user-items'>
+                            <div className='user-items-empty'>
+                                <p>No item available</p>
+                                {name === user.displayName ? <button onClick={() => setItemPopup(!itemPopup)}>Let's add some item</button> : null}
+                            </div>
+                        </div>
+                    }
+                    {itemPopup &&
+                        <div className='item-popup'>
+                            <button onClick={() => setItemPopup(!itemPopup)}><id className='fas fa-times' /></button>
+                            <button onClick={handleProductPhoto}>Item photo</button>
+                            <form onSubmit={handleCreateItem}>
+                                <div className='form-inputs'>
+                                    <label htmlFor="name" className='form-label'>
+                                        Name
+                                    </label>
+                                    <input
+                                        type='text'
+                                        name='name'
+                                        className='form-input'
+                                        onChange={handleItemInfo}
+                                    />
+                                </div>
+                                <div className='form-inputs'>
+                                    <label htmlFor="category" className='form-label'>
+                                        Category
+                                    </label>
+                                    <select name="category" id="category" onChange={handleItemInfo}>
+                                        <option selected>Choose category</option>
+                                        <option value="clothing">Clothing</option>
+                                        <option value="furniture">Furniture</option>
+                                        <option value="electronics">Electronics</option>
+                                        <option value="books">Books</option>
+                                    </select>
+                                </div>
+                                <div className='form-inputs'>
+                                    <label htmlFor="description" className='form-label'>
+                                        Description
+                                    </label>
+                                    <textarea
+                                        type='text'
+                                        name='description'
+                                        className='form-input'
+                                        onChange={handleItemInfo}
+                                    />
+                                </div>
+                                <div className='form-inputs'>
+                                    <label htmlFor="condition" className='form-label'>
+                                        Condition
+                                    </label>
+                                    <input
+                                        type='text'
+                                        name='condition'
+                                        className='form-input'
+                                        onChange={handleItemInfo}
+                                    />
+                                </div>
+                                <button type='submit'>Add Item</button>
+                            </form>
 
                         </div>
-                    </div>
-                    :
-                    <div className='user-items'>
-                        <div className='user-items-empty'>
-                            <p>No item available</p>
-                            {name === user.displayName ? <button onClick={() => setItemPopup(!itemPopup)}>Let's add some item</button> : null}
-                        </div>
-                    </div>
-                }
-                {itemPopup &&
-                    <div className='item-popup'>
-                        <button onClick={() => setItemPopup(!itemPopup)}><id className='fas fa-times' /></button>
-                        <button onClick={handleProductPhoto}>Item photo</button>
-                        <form onSubmit={handleCreateItem}>
-                            <div className='form-inputs'>
-                                <label htmlFor="name" className='form-label'>
-                                    Name
-                                </label>
-                                <input
-                                    type='text'
-                                    name='name'
-                                    className='form-input'
-                                    onChange={handleItemInfo}
-                                />
-                            </div>
-                            <div className='form-inputs'>
-                                <label htmlFor="category" className='form-label'>
-                                    Category
-                                </label>
-                                <select name="category" id="category" onChange={handleItemInfo}>
-                                    <option selected>Choose category</option>
-                                    <option value="clothing">Clothing</option>
-                                    <option value="furniture">Furniture</option>
-                                    <option value="electronics">Electronics</option>
-                                    <option value="books">Books</option>
-                                </select>
-                            </div>
-                            <div className='form-inputs'>
-                                <label htmlFor="description" className='form-label'>
-                                    Description
-                                </label>
-                                <textarea
-                                    type='text'
-                                    name='description'
-                                    className='form-input'
-                                    onChange={handleItemInfo}
-                                />
-                            </div>
-                            <div className='form-inputs'>
-                                <label htmlFor="condition" className='form-label'>
-                                    Condition
-                                </label>
-                                <input
-                                    type='text'
-                                    name='condition'
-                                    className='form-input'
-                                    onChange={handleItemInfo}
-                                />
-                            </div>
-                            <button type='submit'>Add Item</button>
-                        </form>
-
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </>
     )

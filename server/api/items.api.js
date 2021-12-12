@@ -6,6 +6,7 @@ const authMiddleware = require("../middlewares/authentication");
 
 router.post("/", authMiddleware.loginRequired, itemController.create);
 router.get("/", itemController.list);
+router.get("/own", authMiddleware.loginRequired, itemController.getOwnItems);
 router.get("/:id", itemController.getSingleItem)
 router.put("/:id", authMiddleware.loginRequired, itemController.update);
 router.delete("/:id", authMiddleware.loginRequired, itemController.delete);
