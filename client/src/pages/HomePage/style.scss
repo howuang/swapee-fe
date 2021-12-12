@@ -7,7 +7,7 @@
 	font-size: 100px;
 	font-weight: bold;
 	width: 100%;
-	height: 100vh;
+	height: 80vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -70,5 +70,8 @@ section {
 	text-decoration: none;
 	font-size: 30px;
 	color: white;
-	background-color: rgb(129, 137, 255);
+	background-color: rgb(102, 103, 171);
+	&:hover {
+		border: 3px solid black;
+	}
 }

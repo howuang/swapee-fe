@@ -15,9 +15,9 @@
 .user-details {
 	display: flex;
 	button {
-		border: 3px solid rgb(113, 211, 186);
+		border: none;
 		height: 35px;
-		background-color: rgb(113, 211, 186);
+		background-color: black;
 		border-radius: 5px;
 		color: white;
 		display: flex;
@@ -27,6 +27,8 @@
 	}
 	button:hover {
 		color: white;
+		background-color: rgb(102, 103, 171);
+		transition: all 0.3s ease-out;
 	}
 
 	img {
@@ -59,6 +61,9 @@
 .user-intro {
 	width: 100%;
 	border-bottom: 1px solid rgb(165, 165, 165);
+	h5 {
+		font-weight: bold;
+	}
 }
 
 .profile-popup {
@@ -76,10 +81,10 @@
 	justify-content: center;
 	align-items: center;
 	z-index: 1;
-	.fa-times {
-		right: 0;
-		background: black;
-	}
+	// .fa-times {
+	// 	right: 0;
+	// 	background: black;
+	// }
 	button {
 		width: 100%;
 		height: 50px;

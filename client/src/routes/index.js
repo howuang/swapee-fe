@@ -10,6 +10,7 @@ import ProfilePage from '../pages/ProfilePage/ProfilePage';
 import PrivateRoute from './PrivateRoute';
 import Footer from '../components/Footer/Footer';
 import DetailPage from '../pages/DetailPage/DetailPage';
+import MessagePage from '../pages/MessagePage/MessagePage';
 
 const PublicLayout = () => {
     return (
@@ -31,6 +32,9 @@ const AllRoutes = () => {
             <Route path="/" element={<PublicLayout />} >
                 <Route exact path="/:name" element={<PrivateRoute>
                     <ProfilePage />
+                </PrivateRoute>} />
+                <Route exact path="/:name/messages" element={<PrivateRoute>
+                    <MessagePage />
                 </PrivateRoute>} />
                 <Route exact path="/explore" element={<ExplorePage />} />
                 <Route exact path="/explore/:id" element={<DetailPage />} />

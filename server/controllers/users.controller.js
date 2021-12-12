@@ -97,9 +97,6 @@ userController.updateProfile = catchAsync(async (req, res, next) => {
   const updateObject = {};
   const salt = await bcrypt.genSalt(10);
   try {
-    // if (req.body.password) {
-    //   password = await bcrypt.hash(password, salt);
-    // }
     allowOptions.forEach((option) => {
       if (req.body[option] !== "") {
         updateObject[option] = req.body[option];

@@ -173,7 +173,7 @@ const DetailPage = () => {
                                 </div>}
                             {swapPopup &&
                                 <div className='swap-popup'>
-                                        <button onClick={() => setSwapPopup(!swapPopup)}>Cancel</button>
+                                        <button className='swap-popup-btn' onClick={() => setSwapPopup(!swapPopup)}>Cancel</button>
                                     <form onSubmit={handleCreateOffer}>
                                         {ownItems &&
                                             <div className='user-item'>
@@ -188,7 +188,7 @@ const DetailPage = () => {
                                             </div>}
                                         <div className='form-inputs'>
                                             <label htmlFor="message" className='form-label'>
-                                                Offer message:
+                                                Message:
                                             </label>
                                             <textarea
                                                 type='text'
@@ -197,7 +197,7 @@ const DetailPage = () => {
                                                 onChange={handleSwapOffer}
                                             />
                                         </div>
-                                        <button type="submit">Let's swap</button>
+                                        <button className='swap-popup-btn' type="submit">Let's swap</button>
                                     </form>
                                 </div>}
                             

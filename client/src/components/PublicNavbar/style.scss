@@ -21,8 +21,8 @@
 	position: relative;
 }
 .navbar-logo:hover {
-	color: rgb(118, 129, 228);
-	transition: all 0.4s ease-out;
+	color: rgb(102, 103, 171);
+	transition: all 0.3s ease-out;
 }
 
 .fa-firstdraft {
@@ -196,6 +196,10 @@
 		color: black;
 		line-height: 0.7rem;
 	}
+	.dropdown-link:hover {
+		color: black;
+		text-decoration: underline;
+	}
 }
 
 .logout-btn {
@@ -203,6 +207,9 @@
 	background: none;
 	text-align: left;
 	padding-left: 1rem;
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 .searchbox {

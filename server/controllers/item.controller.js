@@ -49,8 +49,8 @@ itemController.list = catchAsync(async (req, res) => {
             .sort({ ...sortBy, createdAt: -1 })
             .skip(offset)
             .limit(limit).populate("owner")
-    } else if(owner){
-         items = await Item.find({ owner: owner })
+    } else if (owner) {
+        items = await Item.find({ owner: owner })
             .sort({ ...sortBy, createdAt: -1 })
             .skip(offset)
             .limit(limit).populate("owner")
@@ -143,10 +143,13 @@ itemController.createOfferRequest = catchAsync(async (req, res) => {
     console.log("item offer", itemOffer)
     console.log("id", id)
     const userId = req.userId;
-    if (id === itemOffer) throw new Error("Cannot create offer with this item");
-
+    const offer = await OfferRequest.findOne({item: id, itemOffer: itemOffer })
+    if (offer) {
+        res.status(404).json({ message: "Cannot make the same offer again" });
+    } else if (id === itemOffer) {
+       res.status(404).json({ message: "Cannot offer same item" })
+    };
     const item = await Item.findById(id);
-    if (userId === item.owner._id) throw new Error("Cannot offer to own item");
     
     const offerRequest = await OfferRequest.create({
         itemOffer,

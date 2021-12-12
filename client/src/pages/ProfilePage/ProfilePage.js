@@ -229,7 +229,6 @@ const ProfilePage = () => {
                                     if (filter === null) {
                                         return e
                                     } else {
-                                        
                                         return e.isSwapped === filter
                                     }
                                 }).map((e) => {

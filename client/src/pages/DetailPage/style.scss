@@ -84,17 +84,16 @@
 	&-swap {
 		height: 40px;
 		width: 100%;
-		border-radius: 10px;
-		border: none;
+		border-radius: 5px;
+		border: 3px solid rgb(102, 103, 171);
 		margin-bottom: 1rem;
 		color: white;
-		background-color: rgb(159, 255, 226);
+		background-color: rgb(102, 103, 171);
+		&:hover {
+			border: 3px solid black;
+			transition: all 0.4s ease-out;
+		}
 	}
-}
-
-.swap-btn button {
-	width: 100%;
-	background: red;
 }
 
 .item-info {
@@ -109,7 +108,20 @@
 	}
 }
 .swap-popup {
-	textarea {
+	&-btn {
+		background-color: black;
+		width: 100%;
+		border-radius: 5px;
+		height: 40px;
+		color: white;
+		border: none;
+		margin-bottom: 1rem;
+		&:hover {
+			background-color: rgb(102, 103, 171);
+			transition: all 0.4s ease-out;
+		}
+	}
+	.form-input textarea {
 		width: 100%;
 	}
 }
