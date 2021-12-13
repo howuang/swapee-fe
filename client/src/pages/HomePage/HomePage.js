@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Footer from '../../components/Footer/Footer';
 import Items from '../../components/Items/Items';
-import PublicNavbar from '../../components/PublicNavbar/PublicNavbar'
 import { itemActions } from '../../redux/actions/item.actions';
 import "./style.scss"
 
@@ -11,7 +9,7 @@ const HomePage = () => {
     const dispatch = useDispatch();
 
     const items = useSelector((state) => state.items.items);
-    console.log("items", items)
+    const user = useSelector(state => state.auth.user);
 
     useEffect(() => {
         dispatch(itemActions.getAllItems(null, 5, 1, null, +1, null));
@@ -49,7 +47,7 @@ const HomePage = () => {
                     <div className="home-products-bar">
                         
                         <div className="home-items">
-                            {items.map((e) => {
+                            {items.filter((e) => e.isSwapped === "false" && e.owner?._id !== user._id).map((e) => {
                                 return <Items key={e._id} {...e} />
                             })}
                         </div>

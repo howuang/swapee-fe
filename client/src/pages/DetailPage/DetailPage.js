@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import Footer from '../../components/Footer/Footer'
 import Items from '../../components/Items/Items';
-import PublicNavbar from '../../components/PublicNavbar/PublicNavbar'
 import { authActions } from '../../redux/actions/auth.actions';
 import { itemActions } from '../../redux/actions/item.actions';
 import './style.scss'
@@ -23,7 +21,6 @@ const DetailPage = () => {
         message: "",
         itemOffer: ""
     });
-    console.log("swap offer", swapOffer);
     
     const dispatch = useDispatch();
     const params = useParams();
@@ -49,8 +46,8 @@ const DetailPage = () => {
     const user = useSelector(state => state.auth.user);
     const items = useSelector(state => state.items.items);
     const ownItems = useSelector(state => state.items.ownItems);
-    console.log("own items list", ownItems);
     // console.log(("item owner id", item.owner._id))
+    console.log("items", items)
 
     const handleItemInfo = (e) => {
         setItemInfo({ ...itemInfo, [e.target.name]: e.target.value })
@@ -177,7 +174,7 @@ const DetailPage = () => {
                                     <form onSubmit={handleCreateOffer}>
                                         {ownItems &&
                                             <div className='user-item'>
-                                                {ownItems.map((e) => {
+                                                {ownItems.filter((e)=>e.isSwapped === "false").map((e) => {
                                                     return (
                                                         <button key={e._id} onClick={()=>setSwapOffer({...swapOffer, itemOffer: e._id})} className='user-item-card' type='button'>
                                                                 <img className='user-item-card-img' src={e.imageUrl} />
@@ -221,7 +218,7 @@ const DetailPage = () => {
                     <div className='extra-items'>
                         <h4>More things you might like</h4>
                         <div className='extra-items-list'>
-                            {items.filter((e) => e.isSwapped === "false").map((e) => {
+                            {items.filter((e) => e.isSwapped === "false" && e.owner?._id !== user._id).map((e) => {
                                 return <Items key={e._id} {...e} />
                     
                             })}

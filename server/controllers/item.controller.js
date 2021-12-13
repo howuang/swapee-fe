@@ -42,24 +42,24 @@ itemController.list = catchAsync(async (req, res) => {
         items = await Item.find({ name: { $regex: q, $options: 'i' } })
             .sort({ ...sortBy, createdAt: -1 })
             .skip(offset)
-            .limit(limit).populate("owner")
+            .limit(limit).populate("owner").lean()
         
     } else if (category) {
         items = await Item.find({ category: category })
             .sort({ ...sortBy, createdAt: -1 })
             .skip(offset)
-            .limit(limit).populate("owner")
+            .limit(limit).populate("owner").lean()
     } else if (owner) {
         items = await Item.find({ owner: owner })
             .sort({ ...sortBy, createdAt: -1 })
             .skip(offset)
-            .limit(limit).populate("owner")
+            .limit(limit).populate("owner").lean()
     }
     else {
         items = await Item.find()
             .sort({ ...sortBy, createdAt: -1 })
             .skip(offset)
-            .limit(limit).populate("owner")
+            .limit(limit).populate("owner").lean()
     }
     return sendResponse(res, 200, true, { items }, null, "Received all items");
 });
@@ -139,20 +139,15 @@ itemController.delete = catchAsync(async (req, res) => {
 
 itemController.createOfferRequest = catchAsync(async (req, res) => {
     const { message, itemOffer } = req.body;
-    const { id } = req.params;
     console.log("item offer", itemOffer)
-    console.log("id", id)
+    const { id } = req.params;
     const userId = req.userId;
-    const offer = await OfferRequest.findOne({item: id, itemOffer: itemOffer })
-    if (offer) {
-        res.status(404).json({ message: "Cannot make the same offer again" });
-    } else if (id === itemOffer) {
-       res.status(404).json({ message: "Cannot offer same item" })
-    };
+    if (id === itemOffer) {
+        res.status(404).json({ message: "Cannot offer same item" })
+    } 
     const item = await Item.findById(id);
-    
     const offerRequest = await OfferRequest.create({
-        itemOffer,
+        itemOffer: itemOffer,
         owner: userId,
         message,
         item: id
@@ -162,8 +157,7 @@ itemController.createOfferRequest = catchAsync(async (req, res) => {
 
     await item.save();
     await item.populate("offers");
-    // await item.execPopulate();
-    return sendResponse(res, 200, true, { offerRequest }, null, "Create comment");
+    return sendResponse(res, 200, true,  offerRequest , null, "Create comment");
 });
 
 

@@ -14,7 +14,7 @@ const createItem = ({name, category, description, condition, imageUrl}, userId) 
     }
 };
 
-const getAllItems = (query = null, limit = 10, pageNum = 1, ownerId = null, sortBy = null, category=null) => async (dispatch) => {
+const getAllItems = (query = null, limit = 12, pageNum = 1, ownerId = null, sortBy = null, category=null) => async (dispatch) => {
     dispatch({ type: types.GET_ALL_ITEMS_REQUEST, payload: null });
     try {
         let queryString = "";
@@ -46,7 +46,6 @@ const getOwnItems = () => async (dispatch) => {
     dispatch({ type: types.GET_OWN_ITEMS_REQUEST, payload: null });
     try {
         const res = await api.get(`/items/own`);
-        console.log("own items", res)
         dispatch({ type: types.GET_OWN_ITEMS_SUCCESS, payload: res.data.data })
     } catch (error) {
         dispatch({ type: types.GET_OWN_ITEMS_FAILURE, payload: error });

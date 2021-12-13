@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import Footer from '../../components/Footer/Footer';
 import Items from '../../components/Items/Items';
-import PublicNavbar from '../../components/PublicNavbar/PublicNavbar';
 import { authActions } from '../../redux/actions/auth.actions';
 import { itemActions } from '../../redux/actions/item.actions';
 import { userActions } from '../../redux/actions/user.actions';

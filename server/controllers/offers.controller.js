@@ -18,7 +18,7 @@ offerController.getAllOffers = catchAsync(async (req, res) => {
     const offers = await OfferRequest.find(filter)
         .sort({ ...sortBy, createdAt: -1 })
         .skip(offset)
-        .limit(limit).populate({ path: "item", populate: "owner" }).lean();
+        .limit(limit).populate({ path: "item", populate: "owner" }).lean().populate("owner").lean().populate("itemOffer").lean();
     return sendResponse(res, 200, true, { offers }, null, "Received all offer requests");
 });
 

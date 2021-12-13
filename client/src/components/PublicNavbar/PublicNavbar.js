@@ -33,8 +33,8 @@ const DropdownMenu = () => {
 
   return (
     <div className='dropdown'>
-      <Link className='dropdown-link' to={`/${user.displayName}/messages`}>Messages</Link>
       <Link className='dropdown-link' to={`/${user.displayName}`}>My Profile</Link>
+      <Link className='dropdown-link' to={`/${user.displayName}/messages`}>Messages</Link>
       <Link className='dropdown-link' to="/membership">Membership</Link>
       <hr></hr>
       <button className='logout-btn' onClick={handleLogout}>Log Out</button>

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
-import Footer from '../../components/Footer/Footer';
 import Items from '../../components/Items/Items';
-import PublicNavbar from '../../components/PublicNavbar/PublicNavbar';
 import { itemActions } from '../../redux/actions/item.actions';
 import "./style.scss";
 
@@ -21,6 +18,7 @@ const ExplorePage = () => {
     }
 
     const items = useSelector(state => state.items.items);
+    const user = useSelector(state => state.auth.user);
 
     useEffect(() => {
         dispatch(itemActions.getAllItems(null, limit, 1, null, null, category));
@@ -49,7 +47,7 @@ const ExplorePage = () => {
                 </div>
                 <div className="explore-items">
                     <div className="explore-items-list">
-                        {items.filter((e) => e.isSwapped === "false").map((e) => {
+                        {items.filter((e) => e.isSwapped === "false" && e.owner?._id !== user._id).map((e) => {
                             return <Items key={e._id} {...e} />
                     
                         })}

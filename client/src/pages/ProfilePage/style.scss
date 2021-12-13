@@ -24,11 +24,11 @@
 		justify-content: center;
 		align-items: center;
 		padding: 5px 10px;
-	}
-	button:hover {
-		color: white;
-		background-color: rgb(102, 103, 171);
-		transition: all 0.3s ease-out;
+		&:hover {
+			color: white;
+			background-color: rgb(102, 103, 171);
+			transition: all 0.3s ease-out;
+		}
 	}
 
 	img {
