@@ -18,15 +18,10 @@ offerController.getAllOffers = catchAsync(async (req, res) => {
     const offers = await OfferRequest.find(filter)
         .sort({ ...sortBy, createdAt: -1 })
         .skip(offset)
-        .limit(limit).populate({ path: "item", populate: "owner" }).lean().populate("owner").lean().populate("itemOffer").lean();
+        .limit(limit).lean().populate({ path: "item", populate: "owner" }).lean().populate("owner").lean().populate("itemOffer").lean();
     return sendResponse(res, 200, true, { offers }, null, "Received all offer requests");
 });
 
-offerController.getReceiveOffers = catchAsync(async (req, res) => {
-    let userId = req.userId;
-     const sentOffers = await OfferRequest.find({ owner: userId })
-
-})
 
 offerController.getSingleOffer = catchAsync(async (req, res) => {
     const offerRequest = await OfferRequest.findById(req.params.id)
@@ -45,22 +40,34 @@ offerController.getSingleOffer = catchAsync(async (req, res) => {
 });
 
 offerController.update = catchAsync(async (req, res) => {
-    const offerRequest = await OfferRequest.findByIdAndUpdate(
-        req.params.id,
-        { status: req.body.status },
-        { new: true }).populate("item");
-    
-    //Update both items in the request as swapped
-    await Item.findByIdAndUpdate(offerRequest.item._id, { isSwapped: true, newOwner: offerRequest.owner._id });
-    await Item.findByIdAndUpdate(offerRequest.itemOffer._id, { isSwapped: true, newOwner: offerRequest.item.owner._id });
-    if (!offerRequest) {
+    const offerId = req.params.id;
+    console.log("req body", req.body);
+    const { status } = req.body;
+    console.log("status body", req.body)
+    console.log("status", status)
+    let found = await OfferRequest.findById(offerId)
+    if (!found) {
         res.status(404).json({ message: "Swap request not found" });
     } else {
+        if (status === "success") {
+            found = await OfferRequest.findByIdAndUpdate(offerId, {status: "success"}, {new: true}).populate({ path: "item", populate: "offers" }).lean();
+            await Promise.all(
+                //Update other received offer requests of this item 
+                found.item.offers.map(async (offer) => {
+                    await OfferRequest.findByIdAndUpdate(found.item.offers._id, { status: "denied" }, {new: true})
+                })
+            )
+            //Update both items in the request as swapped
+            await Item.findByIdAndUpdate(found.item._id, { isSwapped: true, newOwner: found.owner._id });
+            await Item.findByIdAndUpdate(found.itemOffer._id, { isSwapped: true, newOwner: found.item.owner._id });
+        } else if (status === "deny") {
+             found = await OfferRequest.findByIdAndUpdate(offerId, {status: "denied"}, {new: true})
+        }
         return sendResponse(
             res,
             200,
             true,
-            offerRequest,
+            found,
             null,
             "Successfully update swap request"
         );

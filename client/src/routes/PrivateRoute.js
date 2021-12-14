@@ -6,7 +6,7 @@ const PrivateRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   let location = useLocation();
   if (!isAuthenticated) {
-    return  <Navigate to="/login" state={{from: location}}/>;
+    return  <Navigate to="/signup" state={{from: location}}/>;
   }
   return children
 };

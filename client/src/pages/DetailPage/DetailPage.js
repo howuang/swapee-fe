@@ -108,7 +108,9 @@ const DetailPage = () => {
                                     </div>
                                 </div>
                                 : null}
-                            <hr></hr>
+                            <div className="item-info">
+
+
                             {item.owner?._id !== undefined && item.owner?._id === user._id ?
                                 <div className='item-btns'>
                                     <button className='item-btn' onClick={() => setUpdatePopup(!updatePopup)}>Update Item</button>
@@ -202,7 +204,6 @@ const DetailPage = () => {
                             <div className="item-info">
                                 <h4>{item.name}</h4>
                                 <p>{item.description}</p>
-                                <hr></hr>
                                 <div className="item-info-details">
                                     <p>Category:</p>
                                     <p>{item.category}</p>
@@ -212,6 +213,7 @@ const DetailPage = () => {
                                     <p>Condition:</p>
                                     <p>{item.condition}</p>
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>

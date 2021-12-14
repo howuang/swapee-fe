@@ -8,18 +8,19 @@ footer {
 	color: black;
 	text-align: center;
 	height: 60px;
-	padding: 1rem 0;
-	border-top: 1px solid rgb(223, 223, 223);
+	border-top: 2px solid black;
 }
 
 .footer-menu {
 	display: flex;
 	.footer-left {
+		padding-top: 1rem;
 		width: 80%;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
+		border-right: 2px solid black;
 	}
 	ul {
 		display: flex;

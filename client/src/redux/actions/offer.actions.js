@@ -12,7 +12,18 @@ const getAllOffers = () => async (dispatch) => {
     }
 }
 
+const updateOffers = (offerId, { ...status }) => async (dispatch) => {
+    dispatch({ type: types.UPDATE_OFFER_REQUEST, payload: null });
+    try {
+        const res = await api.put(`/offers/${offerId}`, {...status});
+        dispatch({ type: types.UPDATE_OFFER_SUCCESS, payload: res.data.data.offers})
+    } catch (error) {
+        dispatch({ type: types.UPDATE_OFFER_FAILURE, payload: error });
+    }
+}
+
 
 export const offerActions = {
-    getAllOffers
+    getAllOffers,
+    updateOffers
 };

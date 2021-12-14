@@ -1,0 +1,22 @@
+.membership {
+	padding-top: 2rem;
+	display: flex;
+	justify-content: space-around;
+	&-card {
+		width: 100%;
+		height: 60vh;
+		border: 2px solid black;
+		margin: 2rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		background-color: white;
+		&-header {
+			background-color: black;
+			color: white;
+			width: 100%;
+			padding-top: 1rem;
+			text-align: center;
+		}
+	}
+}

@@ -16,9 +16,10 @@
 .item-container-left {
 	width: 500px;
 	height: 500px;
+	border: 2px solid black;
+	border-right: none;
 	object-fit: cover;
 	overflow: hidden;
-	border-radius: 20px;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -28,14 +29,19 @@
 }
 
 .item-container-right {
-	margin-left: 2rem;
-	padding: 1rem;
 	width: 350px;
+	border: 2px solid black;
+	background-color: white;
 }
 
 .owner-info {
 	display: flex;
-	margin-bottom: 1rem;
+	border-bottom: 2px solid black;
+	height: 100px;
+	&-details {
+		padding: 1rem;
+		border-left: 2px solid black;
+	}
 	&-details-link {
 		font-weight: bold;
 		text-decoration: none;
@@ -51,10 +57,14 @@
 }
 
 .owner-avatar {
-	width: 70px;
-	height: 70px;
-	margin-right: 1rem;
+	width: 100px;
+	height: 100px;
+	padding: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	img {
+		border: 2px solid black;
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
@@ -62,15 +72,18 @@
 		overflow: hidden;
 	}
 }
+.item-info {
+	padding: 1rem;
+}
 
 .item-btn {
 	height: 40px;
 	width: 100%;
-	border-radius: 10px;
-	border: none;
+	border: 2px solid black;
 	margin-bottom: 1rem;
-	color: white;
-	background-color: black;
+	color: black;
+	background-color: white;
+	padding-top: 0.3rem;
 	&-gone {
 		background-color: rgb(146, 146, 146);
 		cursor: none;
@@ -84,15 +97,23 @@
 	&-swap {
 		height: 40px;
 		width: 100%;
-		border-radius: 5px;
-		border: 3px solid rgb(102, 103, 171);
+		border: 2px solid black;
 		margin-bottom: 1rem;
+		color: black;
+		background-color: white;
+		padding-top: 0.3rem;
+		&:hover {
+			color: white;
+			background-color: rgb(102, 103, 171);
+			box-shadow: 5px 5px black;
+			transition: all 0.3s ease-out;
+		}
+	}
+	&:hover {
 		color: white;
 		background-color: rgb(102, 103, 171);
-		&:hover {
-			border: 3px solid black;
-			transition: all 0.4s ease-out;
-		}
+		box-shadow: 5px 5px black;
+		transition: all 0.3s ease-out;
 	}
 }
 
@@ -111,14 +132,16 @@
 	&-btn {
 		background-color: black;
 		width: 100%;
-		border-radius: 5px;
 		height: 40px;
 		color: white;
-		border: none;
+		border: 2px solid black;
 		margin-bottom: 1rem;
+		padding-top: 0.3rem;
 		&:hover {
+			color: white;
 			background-color: rgb(102, 103, 171);
-			transition: all 0.4s ease-out;
+			box-shadow: 5px 5px black;
+			transition: all 0.3s ease-out;
 		}
 	}
 	.form-input textarea {
@@ -135,15 +158,24 @@
 		height: 100px;
 		object-fit: cover;
 		overflow: hidden;
-		border: 3px solid transparent;
+		border: 2px solid black;
 		position: relative;
 		img {
 			height: 100%;
 			width: auto;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
 		}
-	}
-	&-card:hover {
-		border: 3px solid black;
+		&:hover {
+			box-shadow: 3px 3px black;
+			transition: all 0.3s ease-out;
+		}
+		&:focus {
+			box-shadow: 3px 3px black;
+			transition: all 0.3s ease-out;
+		}
 	}
 }
 

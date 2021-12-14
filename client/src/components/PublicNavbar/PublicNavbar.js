@@ -36,8 +36,10 @@ const DropdownMenu = () => {
       <Link className='dropdown-link' to={`/${user.displayName}`}>My Profile</Link>
       <Link className='dropdown-link' to={`/${user.displayName}/messages`}>Messages</Link>
       <Link className='dropdown-link' to="/membership">Membership</Link>
-      <hr></hr>
+      <div className='dropdown-link-bottom'>
+
       <button className='logout-btn' onClick={handleLogout}>Log Out</button>
+      </div>
       </div>
   )
 };

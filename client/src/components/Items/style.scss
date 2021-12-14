@@ -6,16 +6,15 @@
 	text-decoration: none;
 	color: black;
 	text-align: center;
-	margin: 0.1rem;
-	border: 3px solid transparent;
+	margin: 0.5rem;
 	position: relative;
 	.item-img {
 		width: 194px;
 		height: 194px;
-		margin-bottom: 0.5rem;
+		margin-bottom: 1rem;
 		object-fit: cover;
 		overflow: hidden;
-		border: 3px solid transparent;
+		border: 2px solid black;
 		img {
 			height: 100%;
 			width: auto;
@@ -23,17 +22,22 @@
 	}
 	.item-gone {
 		width: 194px;
-		height: 200px;
+		height: 194px;
 		filter: brightness(0.75);
 		margin-bottom: 0.5rem;
 		object-fit: cover;
 		overflow: hidden;
-		border: 3px solid transparent;
+		border: 2px solid black;
 		text-align: center;
 		img {
 			background-color: black;
 			height: 100%;
 			width: auto;
+		}
+		&:hover {
+			box-shadow: 5px 5px black;
+			text-decoration: none;
+			transition: all 0.4s ease-out;
 		}
 	}
 	.item-info {
@@ -48,7 +52,7 @@
 }
 
 .item-img:hover {
-	border: 3px solid black;
+	box-shadow: 5px 5px black;
 	text-decoration: none;
 	transition: all 0.4s ease-out;
 }

@@ -8,7 +8,7 @@
 	background-color: white;
 	width: 100%;
 	z-index: 2;
-	border-bottom: 1px solid rgb(223, 223, 223);
+	border-bottom: 2px solid black;
 }
 
 .navbar-logo {
@@ -164,7 +164,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 3px solid transparent;
+	border: 2px solid black;
 	img {
 		height: 100%;
 		width: 100%;
@@ -173,18 +173,17 @@
 	}
 }
 .avatar:hover {
-	border: 3px solid black;
+	box-shadow: px 3px black;
 	transition: all 0.3s ease-out;
 }
 
 .dropdown {
 	position: absolute;
-	top: 90px;
-	width: 200px;
+	top: 88px;
+	width: 180px;
 	transform: translate(-40%);
 	background-color: white;
-	border: 3px solid black;
-	padding: 0.5rem;
+	border: 2px solid black;
 	overflow: hidden;
 	color: black;
 	display: flex;
@@ -195,6 +194,11 @@
 		text-decoration: none;
 		color: black;
 		line-height: 0.7rem;
+		&-bottom {
+			padding-top: 1rem;
+			border-top: 2px solid black;
+			height: 60px;
+		}
 	}
 	.dropdown-link:hover {
 		color: black;
@@ -214,11 +218,17 @@
 
 .searchbox {
 	width: 200px;
-	border: 3px solid black;
+	border: 2px solid black;
 	border-radius: 20px;
 	padding: 0 5px;
 	display: flex;
 	input {
 		font-weight: thin;
+	}
+	&:after {
+		border: 2px solid black;
+	}
+	&:focus {
+		border: 2px solid black;
 	}
 }
