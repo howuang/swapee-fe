@@ -6,6 +6,7 @@
 		rgb(157, 91, 231),
 		rgb(241, 111, 176)
 	);
+	--gradient2: linear-gradient(white, rgb(102, 103, 171) ;);
 }
 .form-container {
 	margin: 100px auto;
@@ -54,6 +55,10 @@
 	border: 2px solid black;
 }
 
+.login-form {
+	background-color: white;
+}
+
 .close-btn {
 	position: absolute;
 	top: 40px;
@@ -79,6 +84,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	background-color: white;
 }
 
 .form h1 {

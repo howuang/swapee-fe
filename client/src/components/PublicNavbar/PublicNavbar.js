@@ -70,9 +70,9 @@ const PublicNavbar = () => {
     setQuery(e.target.value)
   };
 
-  // useEffect(() => {
-  //   dispatch(authActions.getCurrentUser());
-  // }, []);
+  useEffect(() => {
+    dispatch(authActions.getCurrentUser());
+  }, []);
 
   return (
     <>

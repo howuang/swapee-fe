@@ -128,15 +128,14 @@ const ProfilePage = () => {
                 <div className='user-info'>
                     <div className='user-details'>
                         <div className='user-details-left'>
-                            <img src={renderUser.avatarUrl} alt='profile pic'/>
+                            <img src={renderUser.avatarUrl} alt='profile pic' />
                         </div>
                         <div className='user-details-right'>
                             <div className='user-details'>
-
-                            <h3>{renderUser.name}</h3>
-                            <span>
-                                <small>( {renderUser.membership?.toUpperCase()} )</small>
-                            </span>
+                                <h3>{renderUser.name}</h3>
+                                <span>
+                                    <small>( {renderUser.membership?.toUpperCase()} )</small>
+                                </span>
                             </div>
                             <p>{renderUser.email}</p>
                             {renderUser.location && <p>{renderUser.location}</p>}
