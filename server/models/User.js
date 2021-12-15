@@ -15,7 +15,8 @@ const userSchema = Schema(
     location: { type: String, default: "" },
     googleId: { type: String, required: false, default: "" },
     facebookId: { type: String, required: false, default: "" },
-    role: { type: String, enum: ["user", "admin"], required: true, default: "user" }
+    role: { type: String, enum: ["user", "admin"], required: true, default: "user" },
+    membership: {type: String, enum:["basic", "pro", "premium"], required: true, default: "basic"}
   },
   {
     timestamps: true,

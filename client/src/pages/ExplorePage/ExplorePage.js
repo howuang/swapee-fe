@@ -47,7 +47,7 @@ const ExplorePage = () => {
                 </div>
                 <div className="explore-items">
                     <div className="explore-items-list">
-                        {items.filter((e) => e.isSwapped === "false" && e.owner?._id !== user._id).map((e) => {
+                        {items?.filter((e) => e.isSwapped === "false" && e.owner?._id !== user._id).map((e) => {
                             return <Items key={e._id} {...e} />
                     
                         })}

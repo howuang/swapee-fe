@@ -5,6 +5,7 @@ import './style.scss'
 
 
 const AuthPage = () => {
+    
     return (
         <div className='form-container'>
             <div className='form-content-left'>

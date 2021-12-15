@@ -96,7 +96,7 @@ const ProfilePage = () => {
     
     useEffect(() => {
         dispatch(authActions.getCurrentUser());
-    }, []);
+    }, [isAuthenticated]);
 
     useEffect(() => {
         if (name === user.displayName) {
@@ -107,13 +107,13 @@ const ProfilePage = () => {
             dispatch(userActions.singleUsersRequest(name))
             //singleUserRequest: to get other User infomation
         }
-    }, [user, name]);
+    }, [user]);
 
     useEffect(() => {
         if (otherUser) {
             dispatch(itemActions.getAllItems(null, 10, 1, otherUser._id, null, null))
         }
-    }, [otherUser, name]);
+    }, [otherUser]);
     
     let renderUser;
     if (name === user.displayName) {
@@ -128,10 +128,16 @@ const ProfilePage = () => {
                 <div className='user-info'>
                     <div className='user-details'>
                         <div className='user-details-left'>
-                            <img src={renderUser.avatarUrl} />
+                            <img src={renderUser.avatarUrl} alt='profile pic'/>
                         </div>
                         <div className='user-details-right'>
+                            <div className='user-details'>
+
                             <h3>{renderUser.name}</h3>
+                            <span>
+                                <small>( {renderUser.membership?.toUpperCase()} )</small>
+                            </span>
+                            </div>
                             <p>{renderUser.email}</p>
                             {renderUser.location && <p>{renderUser.location}</p>}
                             {name === user.displayName ?
@@ -216,10 +222,10 @@ const ProfilePage = () => {
                         <div className='user-items'>
                             <div className='user-items-sort'>
                                 <ul>
-                                    <li><button onClick={()=>setFilter(null)} >All</button></li>
-                                    <li><button onClick={()=>setFilter("false")}>Available</button></li>
-                                    <li><button onClick={()=>setFilter("true")}>Swapped</button></li>
-                                {name === user.displayName && <button onClick={() => setItemPopup(!itemPopup)}>Add more items</button>}
+                                    <li><button onClick={() => setFilter(null)} >All</button></li>
+                                    <li><button onClick={() => setFilter("false")}>Available</button></li>
+                                    <li><button onClick={() => setFilter("true")}>Swapped</button></li>
+                                    {name === user.displayName && <button onClick={() => setItemPopup(!itemPopup)}>Add more items</button>}
                                 </ul>
                             </div>
                             <div className='user-items-list'>
@@ -295,7 +301,6 @@ const ProfilePage = () => {
                                 </div>
                                 <button type='submit'>Add Item</button>
                             </form>
-
                         </div>
                     }
                 </div>

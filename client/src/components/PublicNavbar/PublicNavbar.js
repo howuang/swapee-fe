@@ -12,7 +12,7 @@ import { itemActions } from '../../redux/actions/item.actions';
 const Avatar = (props) => {
   const [open, setOpen] = useState(false);
   return (
-    <li>
+    <li className='nav-item'>
       <a href="#" className='avatar' onClick={() => setOpen(!open)}>
         <img src={props.url} />
       </a>
@@ -25,11 +25,14 @@ const Avatar = (props) => {
 
 const DropdownMenu = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
    const handleLogout = () => {
      dispatch(authActions.logout());
+     navigate('/')
    };
   const user = useSelector(state => state.auth.user);
+  console.log("user", user)
 
   return (
     <div className='dropdown'>
@@ -67,9 +70,9 @@ const PublicNavbar = () => {
     setQuery(e.target.value)
   };
 
-  useEffect(() => {
-    dispatch(authActions.getCurrentUser());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(authActions.getCurrentUser());
+  // }, []);
 
   return (
     <>
@@ -83,7 +86,7 @@ const PublicNavbar = () => {
         <ul className={click ? 'nav-menu active' : 'nav-menu'}>
           <li className='nav-item'>
             <form onSubmit={handleSearchSubmit}>
-              <input className='searchbox' onChange={handleSearch}/>
+              <input className='searchbox' onChange={handleSearch} />
             </form>
           </li>
           <li className='nav-item'>
@@ -96,9 +99,7 @@ const PublicNavbar = () => {
             </Link>
           </li>
           {!loading && <>{isAuthenticated ?
-            <li className='nav-item'>
-              <Avatar url={user.avatarUrl} />
-            </li>
+            <Avatar url={user.avatarUrl} />
             :
             <PublicButton />
           }

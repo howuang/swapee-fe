@@ -11,7 +11,6 @@ const loginRequest = (email, password) => async (dispatch) => {
     toast.success(`Welcome ${name}`);
     api.defaults.headers.common["authorization"] =
       "Bearer " + res.data.data.accessToken;
-
     localStorage.setItem("accessToken", res.data.data.accessToken);
   } catch (error) {
     dispatch({ type: types.LOGIN_FAILURE, payload: error });
@@ -83,17 +82,6 @@ const updateProfile = ({...updateInfo}, userId) => async (dispatch) => {
   }
 };
 
-const updateProfilePhoto = (avatarUrl, userId) => async (dispatch) => {
-  dispatch({ type: types.UPDATE_PROFILE_PHOTO_REQUEST, payload: null });
-  try {
-    const res = await api.put(`/users/${userId}/photo`, avatarUrl);
-    dispatch({ type: types.UPDATE_PROFILE_PHOTO_SUCCESS, payload: res.data.data });
-    toast.success(`Your profile photo has been updated.`);
-    dispatch(authActions.getCurrentUser());
-  } catch (error) {
-    dispatch({ type: types.UPDATE_PROFILE_PHOTO_FAILURE, payload: error });
-  }
-};
 
 const getCurrentUser = (accessToken) => async (dispatch) => {
   dispatch({ type: types.GET_CURRENT_USER_REQUEST, payload: null });
@@ -122,7 +110,6 @@ export const authActions = {
   register,
   verifyEmail,
   updateProfile,
-  updateProfilePhoto,
   getCurrentUser,
   logout,
 };

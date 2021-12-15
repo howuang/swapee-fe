@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Outlet, Route, Routes } from 'react-router'
 import { Container } from "react-bootstrap";
 import PublicNavbar from '../components/PublicNavbar/PublicNavbar'
@@ -11,8 +11,6 @@ import PrivateRoute from './PrivateRoute';
 import Footer from '../components/Footer/Footer';
 import DetailPage from '../pages/DetailPage/DetailPage';
 import MessagePage from '../pages/MessagePage/MessagePage';
-import { useDispatch } from 'react-redux';
-import { authActions } from '../redux/actions/auth.actions';
 import MembershipPage from '../pages/MembershipPage/MembershipPage';
 
 const PublicLayout = () => {
@@ -29,11 +27,6 @@ const PublicLayout = () => {
 }
 
 const AllRoutes = () => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(authActions.getCurrentUser());
-    }, []);
     return (
         <Routes>
             <Route exact path="/signup" element={<AuthPage />} />

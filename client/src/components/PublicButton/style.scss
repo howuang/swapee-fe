@@ -1,20 +1,16 @@
-:root {
-	--primary: white;
-}
-
 .btn {
-	padding: 8px 20px;
-	outline: none;
+	padding: 0.5rem 1rem 0.3rem;
 	font-size: 18px;
-	color: white;
-	background: black;
+	color: black;
+	background: white;
 	cursor: pointer;
+	border: 2px solid black;
+	border-radius: 0;
 }
 
 .btn:hover {
-	padding: 6px 18px;
-	transition: all 0.2s ease-out;
-	background-color: white;
-	color: black;
-	border: 3px solid black;
+	color: white;
+	background-color: rgb(102, 103, 171);
+	box-shadow: 5px 5px black;
+	transition: all 0.3s ease-out;
 }

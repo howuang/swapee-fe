@@ -22,7 +22,6 @@ const Messages = (props) => {
                     </div>
                     <div className='message-card-sender-info'>
                         <Link to={`/${props.owner?.displayName}`}>
-                        
                             <h4>{props.owner?.name}</h4>
                         </Link>
                         <p>{props.owner?.email}</p>
@@ -39,11 +38,11 @@ const Messages = (props) => {
             </div>
             <div className='message-card-row-bottom'>
                 <div className='message-card-row-bottom-left'>
-                    <Link to={`/explore/${props.item._id}`}>
+                    <Link to={`/explore/${props.itemOffer._id}`}>
                         <div className='message-card-row-bottom-img'>
-                            <img src={props.item.imageUrl} />
+                            <img src={props.itemOffer.imageUrl} />
                         </div>
-                        <p>{props.item.name}</p>
+                        <p>{props.itemOffer.name}</p>
                         
                     </Link>
                 </div>
@@ -52,11 +51,11 @@ const Messages = (props) => {
                     <p> {props.message}</p>
                 </div>
                 <div className='message-card-row-bottom-right'>
-                    <Link to={`/explore/${props.itemOffer._id}`}>
+                    <Link to={`/explore/${props.item._id}`}>
                         <div className='message-card-row-bottom-img'>
-                            <img src={props.itemOffer.imageUrl} />
+                            <img src={props.item.imageUrl} />
                         </div>
-                        <p>{props.itemOffer.name}</p>
+                        <p>{props.item.name}</p>
                     </Link>
                 </div>
             </div>
@@ -76,7 +75,7 @@ const MessagePage = () => {
     
     useEffect(() => {
         dispatch(offerActions.getAllOffers())
-    }, [user])
+    }, [offers])
     return (
         <>
             <div className="wrapper">

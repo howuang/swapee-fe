@@ -1,8 +1,7 @@
 .hero {
-	// background-image: url("../../assets/images/background4.jpg");
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
+	background-image: var(--gradient);
+	background-size: 400%;
+	animation: bg-animation 5s infinite alternate;
 	color: black;
 	font-size: 100px;
 	font-weight: bold;
@@ -13,37 +12,68 @@
 	justify-content: center;
 	align-items: center;
 	text-decoration: none;
+	border-bottom: 2px solid black;
 	h1 {
 		font-weight: bold;
+		color: white;
+	}
+}
+
+@keyframes bg-animation {
+	0% {
+		background-position: left;
+	}
+	100% {
+		background-position: right;
 	}
 }
 
 section {
-	height: 100vh;
+	height: 80vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-top: 2px solid black;
 }
 
 .intro {
-	flex-basis: 50%;
+	border: 2px solid black;
 	display: flex;
-	flex-wrap: wrap;
+	width: 1000px;
+	height: 300px;
+	box-shadow: 5px 5px black;
 	justify-content: space-between;
-	h1 {
-		font-weight: bold;
+	&-text {
+		padding: 2rem;
+		border-right: 2px solid black;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 700px;
+		h1 {
+			font-weight: bold;
+			color: rgb(102, 103, 171);
+		}
+	}
+	&-left {
+		width: 300px;
+		height: 300px;
+		padding: 2rem;
 	}
 	&-img {
-		height: 300px;
-		width: 300px;
+		height: 100%;
+		width: 100%;
 		border-radius: 50%;
 		object-fit: cover;
 		overflow: hidden;
 		border: 2px solid black;
+		position: relative;
 		img {
 			width: 100%;
 			height: auto;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
 		}
 		&:hover {
 			box-shadow: 5px 5px black;
@@ -60,6 +90,7 @@ section {
 	overflow: scroll;
 	h3 {
 		font-weight: bold;
+		color: rgb(102, 103, 171);
 	}
 }
 

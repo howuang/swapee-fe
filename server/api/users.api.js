@@ -6,10 +6,9 @@ const authMiddleware = require('../middlewares/authentication');
 
 router.post("/", userController.create);
 router.get("/me", authMiddleware.loginRequired, userController.getCurrentUser)      
-router.get("/:displayName", userController.readUser); 
-router.put("/:id", userController.updateProfile);
-router.put("/:id/photo", userController.updateProfilePhoto);
-router.delete("/:id", userController.destroy);
+router.get("/:displayName",  userController.readUser); 
+router.put("/:id", authMiddleware.loginRequired, userController.updateProfile);
+router.delete("/:id", authMiddleware.loginRequired,userController.destroy);
         
 module.exports = router;
         

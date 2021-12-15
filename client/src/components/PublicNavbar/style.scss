@@ -12,17 +12,29 @@
 }
 
 .navbar-logo {
-	color: black;
+	color: transparent;
 	justify-self: start;
 	margin-left: 20px;
 	cursor: pointer;
 	text-decoration: none;
 	font-size: 2rem;
 	position: relative;
+	font-weight: bold;
+	background-image: var(--gradient);
+	background-clip: text;
+	background-size: 400%;
+	animation: bg-animation 5s infinite alternate;
+	padding: 0.5rem 1rem 0.2rem;
+	border: 2px solid transparent;
 }
+
 .navbar-logo:hover {
-	color: rgb(102, 103, 171);
 	transition: all 0.3s ease-out;
+	border: 2px solid black;
+	box-shadow: 5px 5px black;
+	transition: all 0.3s ease-out;
+
+	color: rgb(102, 103, 171);
 }
 
 .fa-firstdraft {
@@ -173,7 +185,7 @@
 	}
 }
 .avatar:hover {
-	box-shadow: px 3px black;
+	box-shadow: 3px 3px black;
 	transition: all 0.3s ease-out;
 }
 

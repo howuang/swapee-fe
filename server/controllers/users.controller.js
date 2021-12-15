@@ -97,10 +97,15 @@ userController.updateProfile = catchAsync(async (req, res, next) => {
   const updateObject = {};
   const salt = await bcrypt.genSalt(10);
   try {
-    allowOptions.forEach((option) => {
-      if (req.body[option] !== "") {
+    allowOptions.forEach(async (option) => {
+      if (option === "password" && req.body[option] !== "") {
+        const salt = await bcrypt.genSalt(10);
+        let password = req.body[option];
+        password = await bcrypt.hash(password, salt);
+        updateObject[option] = password;
+      } else if (req.body[option] !== "") {
         updateObject[option] = req.body[option];
-      } 
+      }
     });
     user = await User.findByIdAndUpdate(
       { _id: req.params.id },
@@ -120,26 +125,6 @@ userController.updateProfile = catchAsync(async (req, res, next) => {
   );
 }
 );
-
-userController.updateProfilePhoto = catchAsync(async (req, res) => {
-  const { avatarUrl } = req.body;
-  const user = await User.findByIdAndUpdate(
-    { _id: req.params.id },
-    { avatarUrl },
-    { new: true })
-  if (!user) {
-    res.status(404).json({ message: "User not Found" });
-  } else {
-    return sendResponse(
-      res,
-      200,
-      true,
-      user,
-      null,
-      "Successfull update user profile photo"
-    );
-  }
-});
 
 userController.destroy = async (req, res) => {
   const user = await User.findByIdAndDelete(req.params.id)

@@ -28,11 +28,6 @@ const Modal = ({ showModal, setShowModal }) => {
         console.log(response);
         dispatch(authActions.loginGoogleRequest(response.tokenId))
     };
-  
-    const responseFacebook = (response) => {
-        console.log(response);
-        dispatch(authActions.loginFacebookRequest(response.id, response.accessToken))
-    };
 
     if (isAuthenticated) return <Navigate to="/" />;
     
@@ -61,7 +56,6 @@ const Modal = ({ showModal, setShowModal }) => {
                                     callback={responseFacebook}
                                     cssClass="login-btn"
                                     icon="fa-facebook"
-
                                 /> */}
                             </div>
                             <span className='form-input-login'>
@@ -160,7 +154,6 @@ const FormSignup = () => {
                         callback={responseFacebook}
                         cssClass="login-btn"
                         icon="fa-facebook"
-
                     /> */}
                 </div>
                  <span className='form-input-login'>

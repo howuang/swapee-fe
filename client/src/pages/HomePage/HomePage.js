@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Items from '../../components/Items/Items';
+import { authActions } from '../../redux/actions/auth.actions';
 import { itemActions } from '../../redux/actions/item.actions';
 import "./style.scss"
 
@@ -15,6 +16,10 @@ const HomePage = () => {
         dispatch(itemActions.getAllItems(null, 8, 1, null, +1, null));
     }, []);
 
+    //     useEffect(() => {
+    //     dispatch(authActions.getCurrentUser());
+    //   }, []);
+
     return (
         <>
             <div className='wrapper'>
@@ -26,18 +31,21 @@ const HomePage = () => {
                 </div>
                 <section>
                     <div className='intro'>
-                        <h1>
-                            What is Swapee?
-                        </h1>
-                        <p>
-                            Swapee is the marketplace app where the next generation come to discover and swap unique items. 
-                            With the sustainable living on the rise, swapping used items instead of buying new products means less clutter in life and less waste to the evnironment.
+                        <div className='intro-text'>
+                            <h1>
+                                What is Swapee?
+                            </h1>
+                            <p>
+                                Swapee is the marketplace app where the next generation come to discover and swap unique items.
+                                With the sustainable living on the rise, swapping used items instead of buying new products means less clutter in life and less waste to the evnironment.
+                            </p>
+                        </div>
+                        <div className="intro-left">
 
-                        </p>
-
-                    </div>
-                    <div className='intro-img'>
-                        <img src='https://i.pinimg.com/originals/ba/7c/d4/ba7cd455dcc0afeeaa5d20c6d4b8e72e.jpg'/>
+                        <div className='intro-img'>
+                            <img src='https://i.pinimg.com/originals/ba/7c/d4/ba7cd455dcc0afeeaa5d20c6d4b8e72e.jpg' />
+                        </div>
+                        </div>
                     </div>
                 </section>
                 <section className="home-products">
@@ -47,7 +55,7 @@ const HomePage = () => {
                     <div className="home-products-bar">
                         
                         <div className="home-items">
-                            {items.filter((e) => e.isSwapped === "false" && e.owner?._id !== user._id).map((e) => {
+                            {items?.filter((e) => e.isSwapped === "false" && e.owner?._id !== user?._id).map((e) => {
                                 return <Items key={e._id} {...e} />
                             })}
                         </div>

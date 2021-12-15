@@ -18,7 +18,6 @@ const authReducer = (state = initialState, action) => {
     case types.VERIFY_EMAIL_REQUEST:
     case types.LOGIN_FACEBOOK_REQUEST:
     case types.UPDATE_PROFILE_REQUEST:
-    case types.UPDATE_PROFILE_PHOTO_SUCCESS:
     case types.GET_CURRENT_USER_REQUEST:
       return { ...state, loading: true };
     case types.REGISTER_SUCCESS:
@@ -46,12 +45,10 @@ const authReducer = (state = initialState, action) => {
     case types.GET_CURRENT_USER_FAILURE:
       return { ...state, loading: false, isAuthenticated: false, user: { ...state.user, payload } };
     case types.UPDATE_PROFILE_SUCCESS:
-    case types.UPDATE_PROFILE_PHOTO_SUCCESS:
       return { ...state, loading: false, user: { ...state.user, payload } };
 
     case types.REGISTER_FAILURE:
     case types.UPDATE_PROFILE_FAILURE:
-    case types.UPDATE_PROFILE_PHOTO_FAILURE:
       return { ...state, loading: false };
 
     case types.GET_CURRENT_USER_SUCCESS:
