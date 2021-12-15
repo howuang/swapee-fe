@@ -212,7 +212,9 @@ const ProfilePage = () => {
                         <h5>Intro</h5>
                         {renderUser.about ?
                             <div>
-                                {renderUser.about}
+                                <p>
+                                    {renderUser.about}
+                                </p>
                             </div> : <p>No intro available</p>}
                     </div>
                 </div>

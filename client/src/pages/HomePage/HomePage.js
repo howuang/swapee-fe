@@ -24,10 +24,12 @@ const HomePage = () => {
         <>
             <div className='wrapper'>
                 <div className='hero'>
-                    <h1>Looking for things to swap today?</h1>
-                    <Link to='/explore'>
-                        <button className='explore-btn'>Explore Now</button>
-                    </Link>
+                    <div className='hero-overlay'>
+                        <h1>Looking for things to swap today?</h1>
+                        <Link to='/explore'>
+                            <button className='explore-btn'>Explore Now</button>
+                        </Link>
+                    </div>
                 </div>
                 <section>
                     <div className='intro'>
@@ -42,9 +44,9 @@ const HomePage = () => {
                         </div>
                         <div className="intro-left">
 
-                        <div className='intro-img'>
-                            <img src='https://i.pinimg.com/originals/ba/7c/d4/ba7cd455dcc0afeeaa5d20c6d4b8e72e.jpg' />
-                        </div>
+                            <div className='intro-img'>
+                                <img src='https://i.pinimg.com/originals/ba/7c/d4/ba7cd455dcc0afeeaa5d20c6d4b8e72e.jpg' />
+                            </div>
                         </div>
                     </div>
                 </section>

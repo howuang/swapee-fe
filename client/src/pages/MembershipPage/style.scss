@@ -1,3 +1,5 @@
+$text-color: rgb(63, 122, 77);
+
 .membership {
 	padding-top: 2rem;
 	display: flex;
@@ -18,7 +20,7 @@
 			padding-top: 1rem;
 			text-align: center;
 			border-bottom: 2px solid black;
-			background-color: rgb(102, 103, 171);
+			background-color: $text-color;
 			color: white;
 		}
 		&-main {
@@ -44,7 +46,7 @@
 				padding: 0.5rem 1rem 0.3rem;
 				&:hover {
 					color: white;
-					background-color: rgb(102, 103, 171);
+					background-color: $text-color;
 					box-shadow: 5px 5px black;
 					transition: all 0.3s ease-out;
 				}

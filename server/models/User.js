@@ -16,7 +16,7 @@ const userSchema = Schema(
     googleId: { type: String, required: false, default: "" },
     facebookId: { type: String, required: false, default: "" },
     role: { type: String, enum: ["user", "admin"], required: true, default: "user" },
-    membership: {type: String, enum:["basic", "pro", "premium"], required: true, default: "basic"}
+    membership: { type: String, enum: ["basic", "pro", "premium"], membershipId: { type: Schema.Types.ObjectId, required: true }, required: true, default: "basic" }
   },
   {
     timestamps: true,

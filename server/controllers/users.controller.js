@@ -5,6 +5,7 @@ const {
   sendResponse,
 } = require("../helpers/utils.helper");
 const User = require("../models/User");
+const Membership = require("../models/Membership");
 
 const userController = {};
 
@@ -125,6 +126,46 @@ userController.updateProfile = catchAsync(async (req, res, next) => {
   );
 }
 );
+
+userController.upgradeMembership = catchAsync(async (req, res, next) => {
+  const { tokenId, amount } = req.body;
+  console.log("amount", amount);
+  const currentMembership = await Membership.findOne({ user: req.userId })
+  console.log(currentMembership)
+  let user = await User.findById(req.userId);
+  console.log("user", user)
+  if (currentMembership && currentMembership.amount === amount) {
+    res.status(404).json({ message: "You already subscribed to this membership" });
+  } else {
+    if (amount === 10) {
+      await Membership.create({
+        type: "pro",
+        user: req.userId,
+        source: tokenId,
+        amount: amount,
+        currency: "USD"
+      })
+      user = await User.findByIdAndUpdate(req.userId, { membership: "pro" }, { new: true });
+    } else if (amount === 20) {
+      await Membership.create({
+        type: "premium",
+        user: req.userId,
+        source: tokenId,
+        amount: amount,
+        currency: "USD"
+      })
+      user = await User.findByIdAndUpdate(req.userId, { membership: "premium" }, { new: true })
+    }
+  }
+  return sendResponse(
+    res,
+    200,
+    true,
+    { user },
+    null,
+    "Successfull upgrade your membership"
+  );
+});
 
 userController.destroy = async (req, res) => {
   const user = await User.findByIdAndDelete(req.params.id)

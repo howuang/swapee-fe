@@ -6,16 +6,17 @@
 		rgb(157, 91, 231),
 		rgb(241, 111, 176)
 	);
-	--gradient2: linear-gradient(white, rgb(102, 103, 171) ;);
 }
+
+$text-color: rgb(63, 122, 77);
 
 .wrapper {
 	padding-top: 88px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background: url(../../assets/images/background7.jpg);
-	background-size: 200%;
+	background: url(../../assets/images/background5.jpg);
+	background-size: 100%;
 }
 
 .user-info {
@@ -31,6 +32,9 @@
 .user-details {
 	display: flex;
 	height: 200px;
+	p {
+		font-size: 17px;
+	}
 	button {
 		border: 2px solid black;
 		height: 35px;
@@ -42,7 +46,7 @@
 		padding: 0.5rem 1rem 0.3rem;
 		&:hover {
 			color: white;
-			background-color: rgb(102, 103, 171);
+			background-color: $text-color;
 			box-shadow: 5px 5px black;
 			transition: all 0.3s ease-out;
 		}
@@ -76,17 +80,22 @@
 		align-items: flex-start;
 	}
 	h3 {
+		font-size: 2rem;
 		font-weight: bold;
 		margin-right: 1rem;
-		color: rgb(102, 103, 171);
+		color: $text-color;
 	}
 }
 .user-intro {
 	width: 100%;
 	border-top: 2px solid black;
-	padding: 1rem;
+	padding: 2rem 2rem 0.8rem;
 	h5 {
 		font-weight: bold;
+		font-size: 1.5rem;
+	}
+	p {
+		font-size: 18px;
 	}
 }
 
@@ -131,6 +140,7 @@
 	border: 2px solid black;
 	border-top: none;
 	background-color: white;
+	padding-bottom: 5rem;
 }
 
 .user-items {
@@ -154,7 +164,7 @@
 			border: 2px solid black;
 		}
 		button:hover {
-			background-color: rgb(102, 103, 171);
+			background-color: $text-color;
 			box-shadow: 5px 5px black;
 			transition: all 0.4s ease-out;
 		}
@@ -163,7 +173,7 @@
 .user-items-sort {
 	display: flex;
 	justify-content: flex-start;
-	align-items: center;
+	align-items: flex-start;
 	text-align: left;
 	ul {
 		display: flex;
@@ -220,7 +230,7 @@
 		margin: 0.5rem;
 		width: 100%;
 		&:hover {
-			background-color: rgb(102, 103, 171);
+			background-color: $text-color;
 			box-shadow: 5px 5px black;
 			transition: all 0.4s ease-out;
 		}

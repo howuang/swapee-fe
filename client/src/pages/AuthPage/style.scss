@@ -1,13 +1,15 @@
+$text-color: rgb(63, 122, 77);
+
 :root {
 	--gradient: linear-gradient(
 		45deg,
-		rgb(113, 131, 233),
-		rgb(118, 100, 216),
-		rgb(157, 91, 231),
-		rgb(241, 111, 176)
+		rgb(216, 197, 161),
+		rgb(63, 122, 77),
+		rgb(89, 112, 67),
+		rgb(41, 65, 49)
 	);
-	--gradient2: linear-gradient(white, rgb(102, 103, 171) ;);
 }
+
 .form-container {
 	margin: 100px auto;
 	width: 1000px;
@@ -138,7 +140,7 @@
 .form-input-btn:hover {
 	cursor: pointer;
 	color: white;
-	background-color: rgb(102, 103, 171);
+	background-color: $text-color;
 	box-shadow: 5px 5px black;
 	transition: all 0.3s ease-out;
 }
@@ -151,7 +153,7 @@
 	text-align: center;
 	a {
 		text-decoration: none;
-		color: #27cdff;
+		color: $text-color;
 		font-weight: 600;
 	}
 }
@@ -186,7 +188,7 @@
 .login-link {
 	border: none;
 	background: none;
-	color: rgb(118, 100, 216);
+	color: $text-color;
 }
 
 .login-link:hover {

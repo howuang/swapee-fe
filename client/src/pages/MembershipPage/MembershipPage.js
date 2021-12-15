@@ -21,21 +21,16 @@ const MembershipPage = () => {
         setStripeToken(token)
     };
 
-    const handleClick = () => {
-        setAmount(10)
-        dispatch(userActions.upgradeMembership({ tokenId: stripeToken?.id, amount: amount }, user._id))
-    }
-
-    // useEffect(() => {
-    //     dispatch(userActions.upgradeMembership({ tokenId: stripeToken?.id, amount: amount }, user._id))
-    //     // toast.success('Successfully upgrade your membership')
-    // }, [stripeToken, amount]);
+    useEffect(() => {
+        if (stripeToken && amount) {
+            dispatch(userActions.upgradeMembership({ tokenId: stripeToken?.id, amount: amount }, user._id))
+        }
+    }, [stripeToken, amount]);
 
 
     useEffect(() => {
         dispatch(authActions.getCurrentUser());
     }, []);
-
 
     return (
         <>
@@ -71,7 +66,7 @@ const MembershipPage = () => {
                                 token={onToken}
                                 stripeKey={KEY}
                             >
-                                <button value="10" onClick={handleClick} >Upgrade</button>
+                                <button onClick={()=>setAmount(10)} >Upgrade</button>
                             </StripeCheckout>
                             <ul>
                                 <li>Access to 10 item listings</li>
