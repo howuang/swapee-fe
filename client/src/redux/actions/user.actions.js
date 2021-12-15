@@ -1,5 +1,6 @@
 import * as types from "../constants/user.constants";
 import api from "../api";
+import { toast } from "react-toastify";
 // import { alertActions } from "./alert.actions";
 
 const usersRequest = (
@@ -45,8 +46,20 @@ const singleUsersRequest = ( displayName ) => async (dispatch) => {
   }
 };
 
+const upgradeMembership = ({ tokenId, amount }, userId) => async (dispatch) => {
+  dispatch({ type: types.UPGRADE_MEMBERSHIP_REQUEST, payload: null });
+  try {
+    const res = await api.post(`/users/${userId}/membership`, { tokenId, amount })
+    dispatch({ type: types.UPGRADE_MEMBERSHIP_SUCCESS, payload: res.data.data })
+    toast.success('Successfully upgrade your membership')
+  } catch (error) {
+    dispatch({ type: types.UPGRADE_MEMBERSHIP_FAILURE, payload: error });
+  }
+};
+
 
 export const userActions = {
   usersRequest,
   singleUsersRequest,
+  upgradeMembership
 };

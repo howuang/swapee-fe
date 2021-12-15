@@ -1,7 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './style.scss'
+import StripeCheckout from 'react-stripe-checkout';
+import { userActions } from '../../redux/actions/user.actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions } from '../../redux/actions/auth.actions';
+
+
+const KEY = process.env.REACT_APP_STRIPE
 
 const MembershipPage = () => {
+    const dispatch = useDispatch();
+    
+    const [amount, setAmount] = useState(0);
+    const [stripeToken, setStripeToken] = useState(null);
+
+    const onToken = (token) => {
+        setStripeToken(token)
+    }
+
+    const user = useSelector(state => state.auth.user);
+
+    console.log("current user", user._id)
+    useEffect(() => {
+        dispatch(userActions.upgradeMembership({ tokenId: stripeToken?.id, amount: amount }, user._id))
+    },[stripeToken]);
+
+     useEffect(() => {
+        dispatch(authActions.getCurrentUser());
+    }, []);
+
+
     return (
         <>
             <div className="wrapper">
@@ -13,7 +41,7 @@ const MembershipPage = () => {
                         </div>
                         <div className='membership-card-main'>
 
-                        <h1>FREE</h1>
+                            <h1>FREE</h1>
                         </div>
                         <div className='membership-card-contents'>
 
@@ -29,12 +57,19 @@ const MembershipPage = () => {
                         </div>
                         <div className='membership-card-main'>
 
-                        <h1>$10</h1>
-                        <p>/monthly</p>
+                            <h1>$10</h1>
+                            <p>/monthly</p>
                         </div>
                         <div className='membership-card-contents'>
-
-                            <button>Upgrade</button>
+                            <StripeCheckout
+                                name='Swapee'
+                                description={`Your total is $10`}
+                                amount={1000}
+                                token={onToken}
+                                stripeKey={KEY}
+                            >
+                                <button onClick={()=>setAmount(10)}>Upgrade</button>
+                            </StripeCheckout>
                             <ul>
                                 <li>Access to 10 item listings</li>
                                 <li>Able to make 5 swap requests per week</li>
@@ -48,11 +83,12 @@ const MembershipPage = () => {
                         </div>
                         <div className='membership-card-main'>
 
-                        <h1>$20</h1>
-                        <p>/monthly</p>
+                            <h1>$20</h1>
+                            <p>/monthly</p>
                         </div>
                         <div className='membership-card-contents'>
                             <button>Upgrade</button>
+                            
 
                             <ul>
                                 <li>Access to unlimited item listings</li>
