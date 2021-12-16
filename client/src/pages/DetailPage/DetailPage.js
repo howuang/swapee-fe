@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import Items from '../../components/Items/Items';
 import { authActions } from '../../redux/actions/auth.actions';
@@ -22,6 +22,7 @@ const DetailPage = () => {
         itemOffer: ""
     });
     
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const params = useParams();
     const itemId = params.id;
@@ -65,6 +66,11 @@ const DetailPage = () => {
     const handleCreateOffer = (e) => {
         e.preventDefault();
         dispatch(itemActions.createOffer(swapOffer, itemId))
+    };
+
+    const handleDeleteItem = () => {
+        dispatch(itemActions.deleteItem(item._id, user._id))
+        navigate(`/${user.displayName}`)
     }
 
     useEffect(() => {
@@ -108,111 +114,120 @@ const DetailPage = () => {
                                 </div>
                                 : null}
                             <div className="item-info">
+                                {item.isSwapped === "true" ? <button className='item-btn-gone'>Gone</button> : <>
+                                    {item.owner?._id !== undefined && item.owner?._id === user._id ?
+                                        <div className='item-btns'>
 
-
-                            {item.owner?._id !== undefined && item.owner?._id === user._id ?
-                                <div className='item-btns'>
-                                    <button className='item-btn' onClick={() => setUpdatePopup(!updatePopup)}>Update Item</button>
-                                </div> : <div>
-                                    {item.isSwapped === "true" ? <button className='item-btn-gone'>Gone</button> : <button onClick={() => setSwapPopup(!swapPopup)} className='item-btn-swap'>Swap request</button>}
-                                </div>}
-                            {updatePopup &&
-                                <div className='item-popup'>
-                                    <button onClick={() => setUpdatePopup(!updatePopup)}><id className='fas fa-times' /></button>
-                                    <button onClick={handleProductPhoto}>Item photo</button>
-                                    <form onSubmit={handleUpdateItem}>
-                                        <div className='form-inputs'>
-                                            <label htmlFor="name" className='form-label'>
-                                                Name
-                                            </label>
-                                            <input
-                                                type='text'
-                                                name='name'
-                                                className='form-input'
-                                                onChange={handleItemInfo}
-                                            />
+                                            <button className='item-btn' onClick={() => setUpdatePopup(!updatePopup)}>Update Item</button>
+                                            <button className='item-btn' onClick={handleDeleteItem}>Delete Item</button>
                                         </div>
-                                        <div className='form-inputs'>
-                                            <label htmlFor="category" className='form-label'>
-                                                Category
-                                            </label>
-                                            <select name="category" id="category" onChange={handleItemInfo}>
-                                                <option selected>Choose category</option>
-                                                <option value="clothing">Clothing</option>
-                                                <option value="furniture">Furniture</option>
-                                                <option value="electronics">Electronics</option>
-                                                <option value="books">Books</option>
-                                            </select>
-                                        </div>
-                                        <div className='form-inputs'>
-                                            <label htmlFor="description" className='form-label'>
-                                                Description
-                                            </label>
-                                            <textarea
-                                                type='text'
-                                                name='description'
-                                                className='form-input'
-                                                onChange={handleItemInfo}
-                                            />
-                                        </div>
-                                        <div className='form-inputs'>
-                                            <label htmlFor="condition" className='form-label'>
-                                                Condition
-                                            </label>
-                                            <input
-                                                type='text'
-                                                name='condition'
-                                                className='form-input'
-                                                onChange={handleItemInfo}
-                                            />
-                                        </div>
-                                        <button type='submit'>Update Item</button>
-                                    </form>
-                                </div>}
-                            {swapPopup &&
-                                <div className='swap-popup'>
+                                    : <button onClick={() => setSwapPopup(!swapPopup)} className='item-btn-swap'>Swap request</button>}
+                                </>}
+                                {/* {item.owner?._id !== undefined && item.owner?._id === user._id ?
+                                    <div className='item-btns'>
+                                        {item.isSwapped === "true " ? <button className='item-btn-gone'>Gone</button> : 
+                                            <button className='item-btn' onClick={() => setUpdatePopup(!updatePopup)}>Update Item</button>
+                                        }
+                                    </div> : <div>
+                                        {item.isSwapped === "true" ? <button className='item-btn-gone'>Gone</button> : <button onClick={() => setSwapPopup(!swapPopup)} className='item-btn-swap'>Swap request</button>}
+                                    </div>} */}
+                                {updatePopup &&
+                                    <div className='item-popup'>
+                                        <button onClick={() => setUpdatePopup(!updatePopup)}><id className='fas fa-times' /></button>
+                                        <button onClick={handleProductPhoto}>Item photo</button>
+                                        <form onSubmit={handleUpdateItem}>
+                                            <div className='form-inputs'>
+                                                <label htmlFor="name" className='form-label'>
+                                                    Name
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    name='name'
+                                                    className='form-input'
+                                                    onChange={handleItemInfo}
+                                                />
+                                            </div>
+                                            <div className='form-inputs'>
+                                                <label htmlFor="category" className='form-label'>
+                                                    Category
+                                                </label>
+                                                <select name="category" id="category" onChange={handleItemInfo}>
+                                                    <option selected>Choose category</option>
+                                                    <option value="clothing">Clothing</option>
+                                                    <option value="furniture">Furniture</option>
+                                                    <option value="electronics">Electronics</option>
+                                                    <option value="books">Books</option>
+                                                </select>
+                                            </div>
+                                            <div className='form-inputs'>
+                                                <label htmlFor="description" className='form-label'>
+                                                    Description
+                                                </label>
+                                                <textarea
+                                                    type='text'
+                                                    name='description'
+                                                    className='form-input'
+                                                    onChange={handleItemInfo}
+                                                />
+                                            </div>
+                                            <div className='form-inputs'>
+                                                <label htmlFor="condition" className='form-label'>
+                                                    Condition
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    name='condition'
+                                                    className='form-input'
+                                                    onChange={handleItemInfo}
+                                                />
+                                            </div>
+                                            <button type='submit'>Update Item</button>
+                                        </form>
+                                    </div>}
+                                {swapPopup &&
+                                    <div className='swap-popup'>
                                         <button className='swap-popup-btn' onClick={() => setSwapPopup(!swapPopup)}>Cancel</button>
-                                    <form onSubmit={handleCreateOffer}>
-                                        {ownItems &&
-                                            <div className='user-item'>
-                                                {ownItems.filter((e)=>e.isSwapped === "false").map((e) => {
-                                                    return (
-                                                        <button key={e._id} onClick={()=>setSwapOffer({...swapOffer, itemOffer: e._id})} className='user-item-card' type='button'>
+                                        <form onSubmit={handleCreateOffer}>
+                                            {ownItems &&
+                                                <div className='user-item'>
+                                                    {ownItems.filter((e) => e.isSwapped === "false").map((e) => {
+                                                        return (
+                                                            <button key={e._id} onClick={() => setSwapOffer({ ...swapOffer, itemOffer: e._id })} className='user-item-card' type='button'>
                                                                 <img className='user-item-card-img' src={e.imageUrl} />
                                                                 <p className='user-item-card-text'>{e.name}</p>
-                                                        </button>
-                                                    )
-                                                })}
-                                            </div>}
-                                        <div className='form-inputs'>
-                                            <label htmlFor="message" className='form-label'>
-                                                Message:
-                                            </label>
-                                            <textarea
-                                                type='text'
-                                                name='message'
-                                                className='form-input'
-                                                onChange={handleSwapOffer}
-                                            />
-                                        </div>
-                                        <button className='swap-popup-btn' type="submit">Let's swap</button>
-                                    </form>
-                                </div>}
+                                                            </button>
+                                                        )
+                                                    })}
+                                                </div>}
+                                            <div className='form-inputs'>
+                                                <label htmlFor="message" className='form-label'>
+                                                    Message:
+                                                </label>
+                                                <textarea
+                                                    type='text'
+                                                    name='message'
+                                                    className='form-input'
+                                                    onChange={handleSwapOffer}
+                                                />
+                                            </div>
+                                            <button className='swap-popup-btn' type="submit">Let's swap</button>
+                                        </form>
+                                    </div>}
                             
                             
-                            <div className="item-info">
-                                <h4>{item.name}</h4>
-                                <p>{item.description}</p>
-                                <div className="item-info-details">
-                                    <p>Category:</p>
-                                    <p>{item.category}</p>
-                                </div>
-                                <div className="item-info-details">
+                                <div className="item-info">
+                                    <h4>{item.name}</h4>
+                                    <p>{item.description}</p>
+                                    <div className="item-info-details">
+                                        <p>Category:</p>
+                                        <p>{item.category}</p>
+                                    </div>
+                                    <div className="item-info-details">
 
-                                    <p>Condition:</p>
-                                    <p>{item.condition}</p>
+                                        <p>Condition:</p>
+                                        <p>{item.condition}</p>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -230,5 +245,6 @@ const DetailPage = () => {
         </>
     )
 };
+
 
 export default DetailPage

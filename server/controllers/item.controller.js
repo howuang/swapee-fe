@@ -138,13 +138,12 @@ itemController.update = catchAsync(async (req, res, next) => {
 });
 
 itemController.delete = catchAsync(async (req, res) => {
-    await Item.findByIdAndDelete(req.params.id, (err, item) => {
-        if (!item) {
-            res.status(404).json({ message: "Item not found" });
-        } else {
-            res.json(item)
-        }
-    })
+    const item = await Item.findByIdAndDelete(req.params.id)
+    if (!item) {
+        res.status(404).json({ message: "Item not found" });
+    } else {
+        res.json(item)
+    }
 });
 
 itemController.createOfferRequest = catchAsync(async (req, res) => {

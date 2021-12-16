@@ -105,7 +105,8 @@ const MessagePage = () => {
                                 } else if (filter === "received") {
                                     return e.item.owner._id === user._id && e.status === "pending"
                                 } else if (filter === "swapped") {
-                                    return e.status === "success" && e.item.newOwner === user._id
+                                    return e.status === "success" && e.item.newOwner === user._id ||
+                                        e.status === "success" && e.item.owner === user._id
                                 }
                             }).map((e) => {
                                 return (

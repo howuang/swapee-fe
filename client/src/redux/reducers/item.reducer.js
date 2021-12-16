@@ -14,6 +14,7 @@ const itemReducer = (state = initialState, action) => {
         case types.GET_SINGLE_ITEM_REQUEST:
         case types.UPDATE_ITEM_REQUEST:
         case types.GET_OWN_ITEMS_REQUEST:
+        case types.DELETE_ITEM_REQUEST:
             return { ...state, loading: true };
         case types.GET_ALL_ITEMS_SUCCESS:
             return { ...state, loading: false, items: payload };
@@ -26,6 +27,8 @@ const itemReducer = (state = initialState, action) => {
         case types.GET_SINGLE_ITEM_FAILURE:
         case types.UPDATE_ITEM_FAILURE:
         case types.GET_OWN_ITEMS_FAILURE:
+        case types.DELETE_ITEM_SUCCESS:
+        case types.DELETE_ITEM_FAILURE:
             return { ...state, loading: false };
         default:
             return state

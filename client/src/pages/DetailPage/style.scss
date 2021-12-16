@@ -26,6 +26,7 @@ $text-color: rgb(63, 122, 77);
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	background-color: white;
 	img {
 		height: 100%;
 	}
@@ -92,8 +93,8 @@ $text-color: rgb(63, 122, 77);
 		cursor: none;
 		height: 40px;
 		width: 100%;
-		border-radius: 10px;
-		border: none;
+		padding: 0.5rem 1rem 0.3rem;
+		border: 2px solid black;
 		margin-bottom: 1rem;
 		color: white;
 	}

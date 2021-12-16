@@ -89,11 +89,24 @@ const createOffer = (offerInfo, itemId) => async (dispatch) => {
     }
 };
 
+const deleteItem = (itemId, userId) => async (dispatch) => {
+    dispatch({ type: types.DELETE_ITEM_REQUEST, payload: null });
+    try {
+        const res = await api.delete(`/items/${itemId}`);
+        dispatch({ type: types.DELETE_ITEM_SUCCESS, payload: res.data.data });
+        toast.success(`Successfully deleted item`);
+        dispatch(itemActions.getAllItems(null, 10, 1, userId, null));
+    } catch (error) {
+        dispatch({ type: types.DELETE_ITEM_FAILURE, payload: error})
+    }
+}
+
 export const itemActions = {
     createItem,
     getAllItems,
     getOwnItems,
     getSingleItem,
     updateItem,
-    createOffer
+    createOffer,
+    deleteItem,
 }
