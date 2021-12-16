@@ -15,7 +15,7 @@ itemController.create = catchAsync(async (req, res) => {
     const { name, description, category, condition, imageUrl } = req.body;
     let item;
     const owner = await User.findById(req.userId);
-    let ownItems = await Item.find({ owner: owner });
+    let ownItems = await Item.find({ owner: req.userId });
     let availableItems = ownItems.filter((item) => item.isSwapped === "false");
     if (owner.membership === "basic" && availableItems.length >= 5) {
         res.status(404).json({ message: "Please upgrade or swap more before adding items" })
@@ -150,6 +150,8 @@ itemController.delete = catchAsync(async (req, res) => {
 itemController.createOfferRequest = catchAsync(async (req, res) => {
     const { message, itemOffer } = req.body;
     const { id } = req.params;
+    console.log("id", id);
+    console.log("item offer", itemOffer);
     const userId = req.userId;
     const owner = await User.findById(userId);
     let ownOffers = await OfferRequest.find({ owner: userId })
@@ -161,17 +163,17 @@ itemController.createOfferRequest = catchAsync(async (req, res) => {
     } else {
         if (id === itemOffer) {
             res.status(404).json({ message: "Cannot offer same item" })
-        } 
+        } else if (!itemOffer) {
+             res.status(404).json({ message: "Please choose one of your items to offer" })
+        }
         const item = await Item.findById(id);
         const offerRequest = await OfferRequest.create({
-            itemOffer: itemOffer,
+            item: id,
             owner: userId,
+            itemOffer: itemOffer,
             message,
-            item: id
         });
-    
         item.offers.push(offerRequest._id);
-    
         await item.save();
         await item.populate("offers");
         return sendResponse(res, 200, true,  offerRequest , null, "Create comment");

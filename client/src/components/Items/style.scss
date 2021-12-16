@@ -1,11 +1,10 @@
+$text-color: rgb(63, 122, 77);
 .item-card {
 	width: 200px;
 	height: 300px;
-	gap: 1rem 1rem;
 	text-align: left;
 	text-decoration: none;
-	color: black;
-	text-align: center;
+	color: $text-color;
 	margin: 0.5rem;
 	display: flex;
 	flex-direction: column;
@@ -46,12 +45,12 @@
 	}
 	.item-info {
 		text-align: left;
-		font-size: 16px;
+		font-size: 18px;
 		font-weight: bold;
 	}
 }
 .item-card:hover {
-	color: black;
+	color: $text-color;
 	text-decoration: underline;
 	box-shadow: 5px 5px black;
 	text-decoration: none;

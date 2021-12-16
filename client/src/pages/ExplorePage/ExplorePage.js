@@ -29,6 +29,8 @@ const ExplorePage = () => {
             <div className="wrapper">
                 <div className='explore-container'>
                     <div className='explore-top'>
+                        <div className='explore-top-text'>
+
                         <p>
                             Looking for something to swap?
                         </p>
@@ -38,6 +40,9 @@ const ExplorePage = () => {
                         <h3>
                             Browse for things we love
                         </h3>
+                        </div>
+                        <div className='explore-top-category'>
+
                         <select name="category" id="category" onChange={handleCategory}>
                             <option selected value="" >Choose category</option>
                             <option value="clothing">Clothing</option>
@@ -45,6 +50,7 @@ const ExplorePage = () => {
                             <option value="electronics">Electronics</option>
                             <option value="books">Books</option>
                         </select>
+                        </div>
                     </div>
                     <div className="explore-items">
                         <div className="explore-items-list">

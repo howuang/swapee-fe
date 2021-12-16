@@ -46,7 +46,8 @@ const MembershipPage = () => {
                         <div className='membership-card-contents'>
                             <ul>
                                 <li>Access to 5 item listing</li>
-                                <li>Able to make 1 swap requests per week</li>
+                                <li>Able to have 2 pending swap requests.</li>
+                                <li>Weekly Newsletter</li>
                             </ul>
                         </div>
                     </div>
@@ -69,9 +70,9 @@ const MembershipPage = () => {
                                 <button onClick={()=>setAmount(10)} >Upgrade</button>
                             </StripeCheckout>
                             <ul>
-                                <li>Access to 10 item listings</li>
-                                <li>Able to make 5 swap requests per week</li>
-                                <li>Weekly Newsletter</li>
+                                <li>Access to 10 item listings.</li>
+                                <li>Able to have 5 pending swap requests.</li>
+                                <li>Weekly Newsletter.</li>
                             </ul>
                         </div>
                     </div>
@@ -94,10 +95,10 @@ const MembershipPage = () => {
                                 <button onClick={() => setAmount(20)}>Upgrade</button>
                             </StripeCheckout>
                             <ul>
-                                <li>Access to unlimited item listings</li>
-                                <li>Able to make unlimited swap requests</li>
-                                <li>Weekly Newsletter</li>
-                                <li>Invitation to our events</li>
+                                <li>Access to unlimited item listings.</li>
+                                <li>Able to make unlimited swap requests.</li>
+                                <li>Weekly Newsletter.</li>
+                                <li>Invitation to our events.</li>
                             </ul>
                         </div>
                     </div>

@@ -58,6 +58,8 @@ $text-color: rgb(63, 122, 77);
 		justify-content: space-between;
 		border-bottom: 2px solid black;
 		height: 90px;
+		background-color: $text-color;
+		color: white;
 	}
 	&-avatar {
 		width: 70px;
@@ -66,9 +68,13 @@ $text-color: rgb(63, 122, 77);
 		overflow: hidden;
 		border-radius: 50%;
 		margin-right: 1rem;
+		position: relative;
 		img {
 			height: 100%;
-			width: auto;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
 		}
 	}
 	&-item {
@@ -92,7 +98,7 @@ $text-color: rgb(63, 122, 77);
 			padding-left: 1rem;
 			a {
 				text-decoration: none;
-				color: black;
+				color: white;
 				&:hover {
 					text-decoration: underline;
 				}
@@ -117,7 +123,7 @@ $text-color: rgb(63, 122, 77);
 				padding: 1rem;
 				img {
 					width: 100%;
-					height: auto;
+					height: 100%;
 					position: absolute;
 					top: 50%;
 					left: 50%;
@@ -139,8 +145,8 @@ $text-color: rgb(63, 122, 77);
 			margin: 0 0.5rem;
 		}
 		button:hover {
-			color: white;
-			background-color: $text-color;
+			color: black;
+			background-color: white;
 			box-shadow: 5px 5px black;
 			transition: all 0.3s ease-out;
 		}

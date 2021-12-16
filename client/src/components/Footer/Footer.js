@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className='footer-left'>
                     <ul>
                         <li>
-                            <a>Sustaianbility</a>
+                            <a>Sustainability</a>
                         </li>
                         <li>
                             <a>Blog</a>
@@ -45,9 +45,6 @@ const Footer = () => {
                         </li>
                         <li>
                             <a>Sitemap</a>
-                        </li>
-                        <li>
-                            <a>Cookies</a>
                         </li>
                     </ul>
                 </div>

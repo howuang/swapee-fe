@@ -73,7 +73,7 @@ const DetailPage = () => {
     
     useEffect(() => {
         dispatch(itemActions.getSingleItem(itemId));
-    }, []);
+    }, [itemId]);
 
     useEffect(() => {
         dispatch(itemActions.getAllItems(null, 10, 1, null, null, item.category));

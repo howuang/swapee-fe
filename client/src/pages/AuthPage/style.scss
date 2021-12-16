@@ -1,12 +1,14 @@
 $text-color: rgb(63, 122, 77);
 
 :root {
-	--gradient: linear-gradient(
+	--gradient1: linear-gradient(
 		45deg,
 		rgb(216, 197, 161),
 		rgb(63, 122, 77),
 		rgb(89, 112, 67),
-		rgb(41, 65, 49)
+		rgb(173, 194, 146),
+		rgb(63, 122, 77),
+		rgb(167, 150, 119)
 	);
 }
 
@@ -26,7 +28,7 @@ $text-color: rgb(63, 122, 77);
 	position: relative;
 	border: 2px solid black;
 	border-right: none;
-	background-image: var(--gradient);
+	background-image: var(--gradient1);
 	background-size: 300%;
 	animation: bg-animation 5s infinite alternate;
 	font-weight: bold;

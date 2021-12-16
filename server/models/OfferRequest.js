@@ -16,7 +16,6 @@ const OfferRequestSchema = Schema(
         itemOffer: {
             ref: "Item",
             required: true,
-            unique: true,
             type: Schema.Types.ObjectId
         },
         message: {

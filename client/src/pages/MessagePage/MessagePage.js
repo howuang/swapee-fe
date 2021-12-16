@@ -75,7 +75,7 @@ const MessagePage = () => {
     
     useEffect(() => {
         dispatch(offerActions.getAllOffers())
-    }, [offers])
+    }, [user])
     return (
         <>
             <div className="wrapper">

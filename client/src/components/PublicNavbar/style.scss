@@ -14,7 +14,7 @@ $text-color: rgb(63, 122, 77);
 }
 
 .navbar-logo {
-	color: transparent;
+	color: $text-color;
 	justify-self: start;
 	margin-left: 20px;
 	cursor: pointer;
@@ -22,22 +22,17 @@ $text-color: rgb(63, 122, 77);
 	font-size: 2rem;
 	position: relative;
 	font-weight: bold;
-	background-image: var(--gradient);
-	background-clip: text;
-	background-size: 400%;
-	animation: bg-animation 5s infinite alternate;
-	padding: 0.5rem 1rem 0.2rem;
+	padding: 0.5rem 1rem 0.3rem;
 	border: 2px solid transparent;
 }
 
 .navbar-logo:hover {
-	transition: all 0.3s ease-out;
 	border: 2px solid black;
 	box-shadow: 5px 5px black;
-	transition: all 0.3s ease-out;
+	transition: all 0.4s ease-out;
 	padding: 0.5rem 1rem 0.3rem;
-	background-color: rgb(102, 103, 171);
-	color: $text-color;
+	color: white;
+	background-color: $text-color;
 }
 
 .fa-firstdraft {
