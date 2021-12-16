@@ -31,6 +31,7 @@ const DropdownMenu = () => {
      dispatch(authActions.logout());
      navigate('/')
    };
+  
   const user = useSelector(state => state.auth.user);
   console.log("user", user)
 

@@ -44,30 +44,11 @@ $text-color: rgb(63, 122, 77);
 		transition: all 0.4s ease-out;
 	}
 	.item-info {
-		text-align: left;
-		font-size: 18px;
+		font-size: 16px;
 		font-weight: bold;
 	}
-	.fa-times {
-		position: absolute;
-		top: 1rem;
-		right: 1rem;
-		background-color: white;
-		padding: 0.1rem 0.2rem;
-		border: 2px solid black;
-		&:hover {
-			box-shadow: 3px 3px black;
-			text-decoration: none;
-			transition: all 0.4s ease-out;
-		}
-	}
 }
-.btn-gone {
-	display: none;
-	button {
-		display: none;
-	}
-}
+
 .item-card:hover {
 	color: $text-color;
 	text-decoration: underline;

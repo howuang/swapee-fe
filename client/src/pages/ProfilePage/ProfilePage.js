@@ -202,7 +202,6 @@ const ProfilePage = () => {
                                                 onChange={handleChange}
                                             />
                                         </div>
-    
                                         <button type='submit'>Edit Your Profile</button>
                                     </form>
                                 </div>}
@@ -271,7 +270,7 @@ const ProfilePage = () => {
                                         Category
                                     </label>
                                     <select name="category" id="category" onChange={handleItemInfo}>
-                                        <option selected>Choose category</option>
+                                        <option defaultValue={null}>Choose category</option>
                                         <option value="clothing">Clothing</option>
                                         <option value="furniture">Furniture</option>
                                         <option value="electronics">Electronics</option>

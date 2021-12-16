@@ -8,43 +8,43 @@ const Footer = () => {
                 <div className='footer-left'>
                     <ul>
                         <li>
-                            <a>Sustainability</a>
+                            <a href="#">Sustainability</a>
                         </li>
                         <li>
-                            <a>Blog</a>
+                            <a href="#">Blog</a>
                         </li>
                         <li>
-                            <a>About</a>
+                            <a href="#">About</a>
                         </li>
                         <li>
-                            <a>Swap on Swapee</a>
+                            <a href="#">Swap on Swapee</a>
                         </li>
                         <li>
-                            <a>Community</a>
+                            <a href="#">Community</a>
                         </li>
                         <li>
-                            <a>Jobs</a>
+                            <a href="#">Jobs</a>
                         </li>
                         <li>
-                            <a>News</a>
+                            <a href="#">News</a>
                         </li>
                         <li>
-                            <a>Events</a>
+                            <a href="#">Events</a>
                         </li>
                         <li>
-                            <a>Support</a>
+                            <a href="#">Support</a>
                         </li>
                         <li>
-                            <a>Terms</a>
+                            <a href="#">Terms</a>
                         </li>
                         <li>
-                            <a>Privacy</a>
+                            <a href="#">Privacy</a>
                         </li>
                         <li>
-                            <a>Safety</a>
+                            <a href="#">Safety</a>
                         </li>
                         <li>
-                            <a>Sitemap</a>
+                            <a href="#">Sitemap</a>
                         </li>
                     </ul>
                 </div>

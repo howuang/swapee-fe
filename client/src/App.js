@@ -1,10 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import HomePage from './pages/HomePage/HomePage';
-import AuthPage from './pages/AuthPage/AuthPage';
 import AllRoutes from './routes';
-import { authActions } from './redux/actions/auth.actions';
 
 function App() {
   return (
