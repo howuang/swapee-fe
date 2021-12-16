@@ -23,8 +23,19 @@ const updateOffers = (offerId, { ...status }) => async (dispatch) => {
     }
 }
 
+const cancelOfferRequest = (offerId) => async (dispatch) => {
+    dispatch({ type: types.CANCEL_OFFER_REQUEST, payload: null });
+    try {
+        const res = await api.delete(`/offers/${offerId}`);
+        toast.success('Successfully cancel swap request');
+        dispatch(offerActions.getAllOffers());
+    } catch (error) {
+        dispatch({ type: types.CANCEL_OFFER_FAILURE, payload: error})
+    }
+}
 
 export const offerActions = {
     getAllOffers,
-    updateOffers
+    updateOffers,
+    cancelOfferRequest
 };

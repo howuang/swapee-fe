@@ -156,6 +156,7 @@ itemController.createOfferRequest = catchAsync(async (req, res) => {
     const owner = await User.findById(userId);
     let ownOffers = await OfferRequest.find({ owner: userId })
     let pendingOffers = ownOffers.filter((offer) => offer.status === 'pending');
+    const existedOffer = await OfferRequest.findOne({ item: id, itemOffer: itemOffer });
     if (owner.membership === "basic" && pendingOffers.length >= 2) {
         res.status(404).json({ message: "Please upgrade or swap more before making swap requests" })
     } else if (owner.membership === "pro" && pendingOffers.length >= 5) {
@@ -164,7 +165,9 @@ itemController.createOfferRequest = catchAsync(async (req, res) => {
         if (id === itemOffer) {
             res.status(404).json({ message: "Cannot offer same item" })
         } else if (!itemOffer) {
-             res.status(404).json({ message: "Please choose one of your items to offer" })
+            res.status(404).json({ message: "Please choose one of your items to offer" })
+        } else if (existedOffer) {
+            res.status(404).json({ message: "You already made this swap request. Please wait for the response." });
         }
         const item = await Item.findById(id);
         const offerRequest = await OfferRequest.create({
@@ -176,7 +179,7 @@ itemController.createOfferRequest = catchAsync(async (req, res) => {
         item.offers.push(offerRequest._id);
         await item.save();
         await item.populate("offers");
-        return sendResponse(res, 200, true,  offerRequest , null, "Create comment");
+        return sendResponse(res, 200, true, offerRequest, null, "Create comment");
     }
 });
 

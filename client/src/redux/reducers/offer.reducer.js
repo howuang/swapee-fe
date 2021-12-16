@@ -10,12 +10,15 @@ const offerReducer = (state = initialState, action) => {
     switch (type) {
         case types.GET_ALL_OFFERS_REQUEST:
         case types.UPDATE_OFFER_REQUEST:
+        case types.CANCEL_OFFER_REQUEST:
             return { ...state, loading: true };
         case types.GET_ALL_OFFERS_SUCCESS:
         case types.UPDATE_OFFER_SUCCESS:
             return { ...state, loading: false, offers: payload };
         case types.GET_ALL_OFFERS_FAILURE:
         case types.UPDATE_OFFER_FAILURE:
+        case types.GET_ALL_OFFERS_SUCCESS:
+        case types.CANCEL_OFFER_FAILURE:
             return { ...state, loading: false };
         default:
             return state

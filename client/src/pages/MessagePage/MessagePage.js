@@ -11,6 +11,11 @@ const Messages = (props) => {
         dispatch(offerActions.updateOffers(props.offerId, { status: e.target.value }))
     }
 
+    const handleCancelSwapRequest = () => {
+        console.log("e", props.offerId)
+        dispatch(offerActions.cancelOfferRequest(props.offerId))
+    }
+
     return (
         <div className='message-card'>
             <div className='message-card-row-top'>
@@ -33,7 +38,11 @@ const Messages = (props) => {
                         <button value="deny" onClick={handleSwapRequest}>Deny</button>
                     </div>
                     :
-                    null
+                    <div className="message-card-btns">
+                        {props.filter === "sent" ? 
+                        <button value="success" onClick={handleCancelSwapRequest}>Cancel</button>
+                        :null}
+                    </div>
                 }
             </div>
             <div className='message-card-row-bottom'>
@@ -75,7 +84,7 @@ const MessagePage = () => {
     
     useEffect(() => {
         dispatch(offerActions.getAllOffers())
-    }, [user])
+    }, [])
     return (
         <>
             <div className="wrapper">
@@ -96,7 +105,7 @@ const MessagePage = () => {
                                 } else if (filter === "received") {
                                     return e.item.owner._id === user._id && e.status === "pending"
                                 } else if (filter === "swapped") {
-                                    return e.status === "success" && e.item.owner._id === user._id
+                                    return e.status === "success" && e.item.newOwner === user._id
                                 }
                             }).map((e) => {
                                 return (

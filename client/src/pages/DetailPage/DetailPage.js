@@ -83,7 +83,6 @@ const DetailPage = () => {
         dispatch(itemActions.getOwnItems())
     }, [user])
 
-    
     return (
         <>
             <div className="wrapper">
