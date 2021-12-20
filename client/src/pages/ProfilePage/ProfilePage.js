@@ -37,7 +37,7 @@ const ProfilePage = () => {
     const otherUser = useSelector(state => state.users.otherUser);
     const items = useSelector(state => state.items.items);
     
-    var myWidget = window.cloudinary.createUploadWidget({
+    const myWidget = window.cloudinary.createUploadWidget({
         cloudName: 'hoangnguyen',
         uploadPreset: 'panther'
     }, (error, result) => {
@@ -49,10 +49,12 @@ const ProfilePage = () => {
     
     // open profile photo upload widget
     const handleProfilePhoto = (e) => {
+        e.preventDefault();
         myWidget.open();
     };
 
-    var productPhoto = window.cloudinary.createUploadWidget({
+
+    const productPhoto = window.cloudinary.createUploadWidget({
         cloudName: 'hoangnguyen',
         uploadPreset: 'panther'
     }, (error, result) => {
@@ -81,6 +83,7 @@ const ProfilePage = () => {
     const handleUpdate = (e) => {
         e.preventDefault();
         dispatch(authActions.updateProfile({ ...updateInfo }, user._id))
+         myWidget.close();
     };
 
     // const handleUpdateProfilePhoto = (e) => {
@@ -91,7 +94,8 @@ const ProfilePage = () => {
     const handleCreateItem = (e) => {
         e.preventDefault();
         dispatch(itemActions.createItem({ ...itemInfo }, user._id));
-        setItemPopup(!itemPopup)
+        setItemPopup(!itemPopup);
+        productPhoto.close();
     }
     
     useEffect(() => {
@@ -299,7 +303,7 @@ const ProfilePage = () => {
                                         onChange={handleItemInfo}
                                     />
                                 </div>
-                                <button type='submit'>Add Item</button>
+                                <button  type='submit'>Add Item</button>
                             </form>
                         </div>
                     }

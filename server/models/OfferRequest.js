@@ -13,10 +13,10 @@ const OfferRequestSchema = Schema(
             required: true,
             type: Schema.Types.ObjectId
         },
-        itemOffer: {
+        itemOffers: {
             ref: "Item",
             required: true,
-            type: Schema.Types.ObjectId
+            type: Array
         },
         message: {
             type: String,

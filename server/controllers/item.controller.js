@@ -44,7 +44,7 @@ itemController.list = catchAsync(async (req, res) => {
     let items;
     
     page = parseInt(page) || 1;
-    limit = parseInt(limit) || 10;
+    limit = parseInt(limit) || 12;
     const totalItems = await Item.countDocuments({ ...filter });
     const totalPages = Math.ceil(totalItems / limit);
     const offset = limit * (page - 1);
@@ -147,23 +147,19 @@ itemController.delete = catchAsync(async (req, res) => {
 });
 
 itemController.createOfferRequest = catchAsync(async (req, res) => {
-    const { message, itemOffer } = req.body;
+    const { message, itemOffers } = req.body;
     const { id } = req.params;
-    console.log("id", id);
-    console.log("item offer", itemOffer);
     const userId = req.userId;
     const owner = await User.findById(userId);
     let ownOffers = await OfferRequest.find({ owner: userId })
     let pendingOffers = ownOffers.filter((offer) => offer.status === 'pending');
-    const existedOffer = await OfferRequest.findOne({ item: id, itemOffer: itemOffer });
+    const existedOffer = await OfferRequest.findOne({ item: id, itemOffers: itemOffers });
     if (owner.membership === "basic" && pendingOffers.length >= 2) {
         res.status(404).json({ message: "Please upgrade or swap more before making swap requests" })
     } else if (owner.membership === "pro" && pendingOffers.length >= 5) {
         res.status(404).json({ message: "Please upgrade or swap more before making swap requests" })
     } else {
-        if (id === itemOffer) {
-            res.status(404).json({ message: "Cannot offer same item" })
-        } else if (!itemOffer) {
+        if (itemOffers.length < 1) {
             res.status(404).json({ message: "Please choose one of your items to offer" })
         } else if (existedOffer) {
             res.status(404).json({ message: "You already made this swap request. Please wait for the response." });
@@ -172,7 +168,7 @@ itemController.createOfferRequest = catchAsync(async (req, res) => {
         const offerRequest = await OfferRequest.create({
             item: id,
             owner: userId,
-            itemOffer: itemOffer,
+            itemOffers: itemOffers,
             message,
         });
         item.offers.push(offerRequest._id);

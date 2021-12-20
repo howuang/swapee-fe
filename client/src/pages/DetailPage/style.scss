@@ -18,7 +18,7 @@ $text-color: rgb(63, 122, 77);
 
 .item-container-left {
 	width: 500px;
-	height: 500px;
+	height: 100%;
 	border: 2px solid black;
 	border-right: none;
 	object-fit: cover;
@@ -28,7 +28,6 @@ $text-color: rgb(63, 122, 77);
 	align-items: center;
 	background-color: white;
 	img {
-		height: 100%;
 		width: 100%;
 	}
 }
@@ -180,6 +179,12 @@ $text-color: rgb(63, 122, 77);
 		&:focus {
 			box-shadow: 3px 3px black;
 			transition: all 0.3s ease-out;
+		}
+		&:active {
+			box-shadow: 3px 3px black;
+		}
+		&:visited {
+			box-shadow: 3px 3px black;
 		}
 	}
 }

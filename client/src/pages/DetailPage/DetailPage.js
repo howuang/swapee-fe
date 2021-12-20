@@ -17,17 +17,16 @@ const DetailPage = () => {
         condition: "",
         imageUrl: "",
     });
-    const [swapOffer, setSwapOffer] = useState({
-        message: "",
-        itemOffer: ""
-    });
+    const [swapOfferMessage, setSwapOfferMessage] = useState("");
+    const [itemOffers, setItemOffers] = useState([]);
+    const [chosenItems, setChosenItems] = useState([]);
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const params = useParams();
     const itemId = params.id;
 
-    var productPhoto = window.cloudinary.createUploadWidget({
+    const productPhoto = window.cloudinary.createUploadWidget({
         cloudName: 'hoangnguyen',
         uploadPreset: 'panther'
     }, (error, result) => {
@@ -38,8 +37,7 @@ const DetailPage = () => {
     });
   
     // open profile photo upload widget
-    const handleProductPhoto = (e) => {
-        e.preventDefault();
+    const handleProductPhoto = () => {
         productPhoto.open();
     };
 
@@ -48,7 +46,6 @@ const DetailPage = () => {
     const items = useSelector(state => state.items.items);
     const ownItems = useSelector(state => state.items.ownItems);
     // console.log(("item owner id", item.owner._id))
-    console.log("items", items)
 
     const handleItemInfo = (e) => {
         setItemInfo({ ...itemInfo, [e.target.name]: e.target.value })
@@ -59,13 +56,37 @@ const DetailPage = () => {
         dispatch(itemActions.updateItem({ ...itemInfo }, item._id))
     };
     
-    const handleSwapOffer = (e) => {
-        setSwapOffer({ ...swapOffer, [e.target.name]: e.target.value })
+    const handleSwapOfferMessage = (e) => {
+        setSwapOfferMessage(e.target.value)
     };
+
+    const handleItemOffers = (x) => {
+        console.log("item", x)
+        if (itemOffers.length === 0) {
+            setItemOffers([...itemOffers, x._id])
+            setChosenItems([...chosenItems, x.name])
+        } else if (itemOffers.length >= 1) {
+            itemOffers.map((e) => {
+                if (e === x._id) {
+                    const newArray = itemOffers.filter((item) => item !== x._id)
+                    setItemOffers(newArray)
+                    const newArr = chosenItems.filter((item)=>item !==x.name)
+                    setChosenItems(newArr)
+                } else {
+                    setItemOffers([...itemOffers, x._id])
+                    setChosenItems([...chosenItems, x.name])
+                }
+            })
+        }
+    };
+
+    // console.log("item offers", itemOffers);
+    console.log("chosen items", chosenItems)
 
     const handleCreateOffer = (e) => {
         e.preventDefault();
-        dispatch(itemActions.createOffer(swapOffer, itemId))
+        dispatch(itemActions.createOffer(itemOffers, swapOfferMessage, itemId));
+        setSwapPopup(!swapPopup)
     };
 
     const handleDeleteItem = () => {
@@ -121,7 +142,7 @@ const DetailPage = () => {
                                             <button className='item-btn' onClick={() => setUpdatePopup(!updatePopup)}>Update Item</button>
                                             <button className='item-btn' onClick={handleDeleteItem}>Delete Item</button>
                                         </div>
-                                    : <button onClick={() => setSwapPopup(!swapPopup)} className='item-btn-swap'>Swap request</button>}
+                                        : <button onClick={() => setSwapPopup(!swapPopup)} className='item-btn-swap'>Swap request</button>}
                                 </>}
                                 {/* {item.owner?._id !== undefined && item.owner?._id === user._id ?
                                     <div className='item-btns'>
@@ -192,13 +213,25 @@ const DetailPage = () => {
                                                 <div className='user-item'>
                                                     {ownItems.filter((e) => e.isSwapped === "false").map((e) => {
                                                         return (
-                                                            <button key={e._id} onClick={() => setSwapOffer({ ...swapOffer, itemOffer: e._id })} className='user-item-card' type='button'>
+                                                            <button key={e._id} onClick={() => handleItemOffers(e)} className='user-item-card' type='button'>
                                                                 <img className='user-item-card-img' src={e.imageUrl} />
-                                                                <p className='user-item-card-text'>{e.name}</p>
                                                             </button>
                                                         )
                                                     })}
                                                 </div>}
+                                            {itemOffers.length >= 1 ?
+                                                < div >
+                                                    <p>Chosen Items:</p>
+                                                    {chosenItems.map((e) => {
+                                                        console.log("item name", e)
+                                                        return (
+                                                            <p><small>{e}</small></p>
+                                                        )
+                                                    })}
+                                                </div>
+                                                :
+                                                null
+                                            }
                                             <div className='form-inputs'>
                                                 <label htmlFor="message" className='form-label'>
                                                     Message:
@@ -207,7 +240,7 @@ const DetailPage = () => {
                                                     type='text'
                                                     name='message'
                                                     className='form-input'
-                                                    onChange={handleSwapOffer}
+                                                    onChange={handleSwapOfferMessage}
                                                 />
                                             </div>
                                             <button className='swap-popup-btn' type="submit">Let's swap</button>

@@ -7,12 +7,15 @@ import './style.scss'
 const Messages = (props) => {
     const dispatch = useDispatch();
 
+    let sentTime = new Date(props.createdAt);
+    console.log("status", props.status)
+
     const handleSwapRequest = (e) => {
         dispatch(offerActions.updateOffers(props.offerId, { status: e.target.value }))
     }
 
     const handleCancelSwapRequest = () => {
-        console.log("e", props.offerId)
+        // console.log("e", props.offerId)
         dispatch(offerActions.cancelOfferRequest(props.offerId))
     }
 
@@ -29,31 +32,43 @@ const Messages = (props) => {
                         <Link to={`/${props.owner?.displayName}`}>
                             <h4>{props.owner?.name}</h4>
                         </Link>
-                        <p>{props.owner?.email}</p>
+                        <p>{props.owner?.email} | <small>{sentTime.toDateString()}</small></p>
+
                     </div>
                 </div>
                 {props.filter === "received" ?
                     <div className="message-card-btns">
-                        <button value="success" onClick={handleSwapRequest}>Accept</button>
-                        <button value="deny" onClick={handleSwapRequest}>Deny</button>
+                        <button value="success" className="message-card-btns-btn" onClick={handleSwapRequest}>Accept</button>
+                        <button value="deny" className="message-card-btns-btn" onClick={handleSwapRequest}>Deny</button>
                     </div>
                     :
                     <div className="message-card-btns">
-                        {props.filter === "sent" ? 
-                        <button value="success" onClick={handleCancelSwapRequest}>Cancel</button>
+                        {props.filter === "sent" ? <>
+                            {props.status === "denied" ? 
+                            <button className="message-card-btns-denied">Denied</button> : 
+                            <button className="message-card-btns-btn" onClick={handleCancelSwapRequest}>Cancel</button>
+                            
+                            }
+                        </>
                         :null}
                     </div>
                 }
             </div>
             <div className='message-card-row-bottom'>
                 <div className='message-card-row-bottom-left'>
-                    <Link to={`/explore/${props.itemOffer._id}`}>
+                    {props.itemOffers.map((e) => {
+                        return (
+                            <div className='message-card-row-bottom-left-item'>
+                             <Link to={`/explore/${e._id}`}>
                         <div className='message-card-row-bottom-img'>
-                            <img src={props.itemOffer.imageUrl} />
+                            <img src={e.imageUrl} />
                         </div>
-                        <p>{props.itemOffer.name}</p>
+                        <p>{e.name}</p>
                         
                     </Link>
+                            </div>
+                        )
+                    })}
                 </div>
                 <div className='message-card-row-bottom-message'>
 
@@ -79,8 +94,6 @@ const MessagePage = () => {
 
     const offers = useSelector(state => state.offers.offers);
     const user = useSelector(state => state.auth.user);
-
-    console.log("all offers", offers);
     
     useEffect(() => {
         dispatch(offerActions.getAllOffers())
@@ -101,12 +114,11 @@ const MessagePage = () => {
                         <div className="messages-list">
                             {offers?.filter((e) => {
                                 if (filter === "sent") {
-                                    return e.owner._id === user._id && e.status === "pending"
+                                    return e.owner._id === user._id && e.status === "pending" || e.owner._id === user._id && e.status === "denied"
                                 } else if (filter === "received") {
-                                    return e.item.owner._id === user._id && e.status === "pending"
+                                    return e.item.owner._id === user._id && e.status === "pending" 
                                 } else if (filter === "swapped") {
-                                    return e.status === "success" && e.item.newOwner === user._id ||
-                                        e.status === "success" && e.item.owner === user._id
+                                    return e.status === "success" && e.item.owner._id === user._id || e.status === "success" && e.item.newOwner === user._id
                                 }
                             }).map((e) => {
                                 return (
@@ -115,7 +127,6 @@ const MessagePage = () => {
                                 )
                             })}
                         </div>
-
                     </div>
 
 

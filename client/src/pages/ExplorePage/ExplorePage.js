@@ -5,12 +5,12 @@ import { itemActions } from '../../redux/actions/item.actions';
 import "./style.scss";
 
 const ExplorePage = () => {
-    const [limit, setLimit] = useState(10);
+    const [limit, setLimit] = useState(12);
     const [category, setCategory] = useState(null);
     const dispatch = useDispatch();
 
     const handleLimit = () => {
-        setLimit(limit + 10);
+        setLimit(limit + 12);
     };
 
     const handleCategory = (e) => {

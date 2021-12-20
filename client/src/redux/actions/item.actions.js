@@ -77,11 +77,12 @@ const updateItem = ({...updateInfo}, itemId) => async (dispatch) => {
   }
 };
 
-const createOffer = (offerInfo, itemId) => async (dispatch) => {
-    console.log("offer info", offerInfo);
+const createOffer = (itemOffers, message, itemId) => async (dispatch) => {
+    console.log("offer info", message);
+    console.log("items", itemOffers);
     dispatch({ type: types.CREATE_OFFER_REQUEST, payload: null });
     try {
-        const res = await api.post(`/items/${itemId}`, offerInfo);
+        const res = await api.post(`/items/${itemId}`, {itemOffers, message});
         dispatch({ type: types.CREATE_OFFER_SUCCESS, payload: res.data.data });
         toast.success(`Your offer request has been sent`);
     } catch (error) {
