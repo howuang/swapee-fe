@@ -148,8 +148,16 @@ $text-color: rgb(63, 122, 77);
 			transition: all 0.3s ease-out;
 		}
 	}
-	.form-input textarea {
+	form {
 		width: 100%;
+	}
+
+	.form-input {
+		width: 100%;
+		&-text {
+			width: 125%;
+			border: 2px solid black;
+		}
 	}
 }
 

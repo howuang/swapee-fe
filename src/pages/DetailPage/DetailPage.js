@@ -239,7 +239,7 @@ const DetailPage = () => {
                                                 <textarea
                                                     type='text'
                                                     name='message'
-                                                    className='form-input'
+                                                    className='form-input-text'
                                                     onChange={handleSwapOfferMessage}
                                                 />
                                             </div>
