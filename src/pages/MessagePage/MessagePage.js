@@ -114,11 +114,11 @@ const MessagePage = () => {
                         <div className="messages-list">
                             {offers?.filter((e) => {
                                 if (filter === "sent") {
-                                    return e.owner._id === user._id && e.status === "pending" || e.owner._id === user._id && e.status === "denied"
+                                    return e.owner?._id === user._id && e.status === "pending" || e.owner?._id === user._id && e.status === "denied"
                                 } else if (filter === "received") {
-                                    return e.item.owner._id === user._id && e.status === "pending" 
+                                    return e.item.owner?._id === user._id && e.status === "pending" 
                                 } else if (filter === "swapped") {
-                                    return e.status === "success" && e.item.owner._id === user._id || e.status === "success" && e.item.newOwner === user._id
+                                    return e.status === "success" && e.item.owner?._id === user._id || e.status === "success" && e.item.newOwner === user._id
                                 }
                             }).map((e) => {
                                 return (
