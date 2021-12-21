@@ -13,7 +13,7 @@ const HomePage = () => {
     const user = useSelector(state => state.auth.user);
 
     useEffect(() => {
-        dispatch(itemActions.getAllItems(null, 8, 1, null, +1, null));
+        dispatch(itemActions.getAllItems(null, 10, 1, null, +1, null));
     }, []);
 
     //     useEffect(() => {

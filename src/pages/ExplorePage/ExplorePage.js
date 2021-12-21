@@ -5,7 +5,7 @@ import { itemActions } from '../../redux/actions/item.actions';
 import "./style.scss";
 
 const ExplorePage = () => {
-    const [limit, setLimit] = useState(12);
+    const [limit, setLimit] = useState(24);
     const [category, setCategory] = useState(null);
     const dispatch = useDispatch();
 

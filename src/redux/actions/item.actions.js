@@ -14,7 +14,7 @@ const createItem = ({name, category, description, condition, imageUrl}, userId) 
     }
 };
 
-const getAllItems = (query = null, limit = 12, pageNum = 1, ownerId = null, sortBy = null, category=null) => async (dispatch) => {
+const getAllItems = (query = null, limit = 24, pageNum = 1, ownerId = null, sortBy = null, category=null) => async (dispatch) => {
     dispatch({ type: types.GET_ALL_ITEMS_REQUEST, payload: null });
     try {
         let queryString = "";
